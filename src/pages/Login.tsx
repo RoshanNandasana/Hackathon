@@ -43,7 +43,7 @@ const Login = () => {
           <img
             src="/logo.jpg"
             alt="App Icon"
-            className="mx-auto w-20 h-20 object-contain"
+            className="mx-auto w-28 h-28 object-contain"
           />
           <div>
             <h1 className="text-3xl font-bold text-foreground">Panchakarma Care</h1>
