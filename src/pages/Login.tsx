@@ -39,12 +39,19 @@ const Login = () => {
       <div className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          <div className="medical-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto">
-            <Heart className="w-10 h-10 text-white" />
-          </div>
+          {/* Removed the circle div around logo */}
+          <img
+            src="/logo.jpg"
+            alt="App Icon"
+            className="mx-auto w-20 h-20 object-contain"
+          />
           <div>
             <h1 className="text-3xl font-bold text-foreground">Panchakarma Care</h1>
             <p className="text-muted-foreground mt-2">Patient Management System</p>
+          </div>
+        
+  <div>
+           
           </div>
         </div>
 
