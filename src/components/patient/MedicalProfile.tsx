@@ -59,7 +59,7 @@ export const MedicalProfile = () => {
           <CardContent>
             <div className="space-y-2">
               {medicalInfo.conditions.map((condition, index) => (
-                <Badge key={index} variant="outline" className="mr-2 mb-2">
+                <Badge key={index} variant="outline" className="mr-2 mb-2 text-error">
                   {condition}
                 </Badge>
               ))}

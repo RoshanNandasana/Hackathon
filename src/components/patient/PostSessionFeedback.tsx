@@ -7,43 +7,41 @@ import { Progress } from '@/components/ui/progress';
 import { MessageCircle, Star, TrendingUp, Calendar, Send } from 'lucide-react';
 import { useState } from 'react';
 
-
 export const PostSessionFeedback = () => {
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState('');
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedFeedback, setSubmittedFeedback] = useState(null);
 
   const previousFeedback = [
     {
-      date: '15 नवम्बर, 2024',
-      session: 'अभ्यंग मालिश',
+      date: '15 November, 2024',
+      session: 'Abhyanga Massage',
       rating: 5,
-      feedback: 'उत्कृष्ट सत्र! बहुत आराम मिला और ऊर्जा महसूस हुई।',
-      practitioner: 'डॉ. सुरेश कुमार'
+      feedback: 'Excellent session! Felt very relaxed and energized.',
+      practitioner: 'Dr. Suresh Kumar'
     },
     {
-      date: '12 नवम्बर, 2024',
-      session: 'शिरोधारा',
+      date: '12 November, 2024',
+      session: 'Shirodhara',
       rating: 4,
-      feedback: 'अच्छा अनुभव, हालाँकि शुरुआत में कमरे में ठंडक थी।',
-      practitioner: 'डॉ. रेखा शर्मा'
+      feedback: 'Good experience, though room was cold initially.',
+      practitioner: 'Dr. Rekha Sharma'
     },
     {
-      date: '10 नवम्बर, 2024',
-      session: 'उद्वर्तना',
+      date: '10 November, 2024',
+      session: 'Udvartana',
       rating: 5,
-      feedback: 'अद्भुत डिटॉक्स अनुभव। अवश्य सिफारिश करूंगा।',
-      practitioner: 'डॉ. सुरेश कुमार'
+      feedback: 'Amazing detox experience. Would definitely recommend.',
+      practitioner: 'Dr. Suresh Kumar'
     }
   ];
 
-
   const upcomingSession = {
-    therapy: 'शिरोधारा',
-    date: 'कल, शाम 2:00 बजे',
-    practitioner: 'डॉ. सुरेश कुमार'
+    therapy: 'Shirodhara',
+    date: 'Tomorrow, 2:00 PM',
+    practitioner: 'Dr. Suresh Kumar'
   };
-
 
   const feedbackStats = {
     averageRating: 4.7,
@@ -51,24 +49,48 @@ export const PostSessionFeedback = () => {
     completedFeedbacks: 6
   };
 
-
-  const renderStars = (currentRating: number, interactive: boolean = false) => {
+  const renderStars = (currentRating, interactive = false) => {
     return Array.from({ length: 5 }, (_, index) => {
       const starValue = index + 1;
       return (
-        <Star 
+        <Star
           key={index}
           className={`w-6 h-6 cursor-pointer transition-colors ${
-            starValue <= currentRating 
-              ? 'text-yellow-400 fill-yellow-400' 
-              : 'text-muted-foreground'
+            starValue <= currentRating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'
           }`}
           onClick={interactive ? () => setRating(starValue) : undefined}
+          role={interactive ? 'button' : undefined}
+          tabIndex={interactive ? 0 : undefined}
+          aria-label={`${starValue} star`}
         />
       );
     });
   };
 
+  async function submitFeedback() {
+    if (rating === 0) return;
+    setIsSubmitting(true);
+
+    // Simulate submitting feedback to backend + ML model training
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    // Save new feedback locally for demo (replace with actual backend call)
+    const newFeedback = {
+      date: new Date().toLocaleDateString(),
+      session: upcomingSession.therapy,
+      rating,
+      feedback,
+      practitioner: upcomingSession.practitioner,
+    };
+
+    setSubmittedFeedback(newFeedback);
+    setRating(0);
+    setFeedback('');
+    setIsSubmitting(false);
+
+    // Optional: trigger ML model training update here with new feedback
+    console.log('Feedback submitted:', newFeedback);
+  }
 
   return (
     <div className="space-y-6">
@@ -78,11 +100,10 @@ export const PostSessionFeedback = () => {
           <MessageCircle className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold">सेशन के बाद प्रतिक्रिया दें</h1>
-          <p className="text-muted-foreground">अपना थेरेपी अनुभव साझा करें</p>
+          <h1 className="text-3xl font-bold">Post-Session Feedback</h1>
+          <p className="text-muted-foreground">Share your therapy experience</p>
         </div>
       </div>
-
 
       {/* Feedback Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -94,12 +115,11 @@ export const PostSessionFeedback = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold">{feedbackStats.averageRating}</p>
-                <p className="text-sm text-muted-foreground">औसत रेटिंग</p>
+                <p className="text-sm text-muted-foreground">Average Rating</p>
               </div>
             </div>
           </CardContent>
         </Card>
-
 
         <Card className="medical-card">
           <CardContent className="p-6">
@@ -109,12 +129,11 @@ export const PostSessionFeedback = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold">{feedbackStats.totalSessions}</p>
-                <p className="text-sm text-muted-foreground">कुल सत्र</p>
+                <p className="text-sm text-muted-foreground">Total Sessions</p>
               </div>
             </div>
           </CardContent>
         </Card>
-
 
         <Card className="medical-card">
           <CardContent className="p-6">
@@ -124,61 +143,64 @@ export const PostSessionFeedback = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold">{Math.round((feedbackStats.completedFeedbacks / feedbackStats.totalSessions) * 100)}%</p>
-                <p className="text-sm text-muted-foreground">प्रतिक्रिया दर</p>
+                <p className="text-sm text-muted-foreground">Feedback Rate</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-
       {/* New Feedback Form */}
       <Card className="medical-card">
         <CardHeader>
-          <CardTitle>अपने अगले सत्र को रेट करें</CardTitle>
+          <CardTitle>Rate Your Session</CardTitle>
           <CardDescription>
-            {upcomingSession.therapy} {upcomingSession.practitioner} के साथ - {upcomingSession.date}
+            {upcomingSession.therapy} with {upcomingSession.practitioner} - {upcomingSession.date}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-3">
-            <Label>इस सत्र को आप कैसे रेट करेंगे?</Label>
-            <div className="flex gap-2">
+            <Label>How would you rate this session?</Label>
+            <div className="flex gap-2" aria-label="Star rating">
               {renderStars(rating, true)}
             </div>
           </div>
 
-
           <div className="space-y-3">
-            <Label htmlFor="feedback">अपना अनुभव साझा करें</Label>
+            <Label htmlFor="feedback">Share Your Experience</Label>
             <Textarea
               id="feedback"
-              placeholder="हमें अपने थेरेपी सत्र के बारे में बताएं - उपचार के दौरान और बाद में कैसा महसूस हुआ?"
+              placeholder="Tell us about your therapy session — how you felt during and after treatment?"
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               rows={4}
+              aria-live="polite"
             />
           </div>
 
-
           <div className="flex gap-3">
-            <Button className="gap-2" disabled={rating === 0}>
+            <Button className="gap-2" disabled={rating === 0 || isSubmitting} onClick={submitFeedback}>
               <Send className="w-4 h-4" />
-              प्रतिक्रिया सबमिट करें
+              {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
             </Button>
-            <Button variant="outline">
-              ड्राफ्ट के रूप में सहेजें
+            <Button variant="outline" disabled={isSubmitting} onClick={() => { setFeedback(''); setRating(0); }}>
+              Save as Draft
             </Button>
           </div>
+
+          {submittedFeedback && (
+            <div className="mt-4 p-4 bg-green-100 rounded text-green-700">
+              Thank you for your feedback!
+            </div>
+          )}
         </CardContent>
       </Card>
-
 
       {/* Previous Feedback */}
       <Card className="medical-card">
         <CardHeader>
-          <CardTitle>आपकी पूर्व प्रतिक्रियाएँ</CardTitle>
-          <CardDescription>अपने थेरेपी सत्र के अनुभव देखें</CardDescription>
+          <CardTitle>Your Previous Feedback</CardTitle>
+          <CardDescription>View your therapy session experiences</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -189,10 +211,8 @@ export const PostSessionFeedback = () => {
                     <h3 className="font-semibold">{item.session}</h3>
                     <p className="text-sm text-muted-foreground">{item.date} • {item.practitioner}</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="flex">
-                      {renderStars(item.rating)}
-                    </div>
+                  <div className="flex items-center gap-2" aria-label={`Rating: ${item.rating} stars`}>
+                    <div className="flex">{renderStars(item.rating)}</div>
                   </div>
                 </div>
                 <p className="text-sm bg-muted/50 p-3 rounded">{item.feedback}</p>
@@ -202,22 +222,21 @@ export const PostSessionFeedback = () => {
         </CardContent>
       </Card>
 
-
       {/* Feedback Progress */}
       <Card className="medical-card">
         <CardHeader>
-          <CardTitle>प्रतिक्रिया पूर्णता</CardTitle>
-          <CardDescription>बेहतर सेवा के लिए अपने अनुभव साझा करें</CardDescription>
+          <CardTitle>Feedback Completion</CardTitle>
+          <CardDescription>Share your experience for better service</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="flex justify-between text-sm">
-              <span>पूरा हुआ प्रतिक्रिया: {feedbackStats.completedFeedbacks} में से {feedbackStats.totalSessions}</span>
+              <span>Feedback completed: {feedbackStats.completedFeedbacks} of {feedbackStats.totalSessions}</span>
               <span>{Math.round((feedbackStats.completedFeedbacks / feedbackStats.totalSessions) * 100)}%</span>
             </div>
             <Progress value={(feedbackStats.completedFeedbacks / feedbackStats.totalSessions) * 100} className="progress-glow" />
             <p className="text-sm text-muted-foreground">
-              आपकी प्रतिक्रिया हमें बेहतर देखभाल और सेवाओं में सुधार करने में मदद करती है।
+              Your feedback helps us improve care and services.
             </p>
           </div>
         </CardContent>

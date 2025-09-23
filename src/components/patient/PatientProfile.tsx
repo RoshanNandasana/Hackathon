@@ -134,7 +134,6 @@ export const PatientProfile = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">Panchakarma</Badge>
               <Badge variant="outline">Detox Program</Badge>
-              <Badge variant="outline">Stress Relief</Badge>
             </div>
           </CardContent>
         </Card>

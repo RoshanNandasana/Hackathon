@@ -1,16 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Activity, Heart, TrendingUp, BarChart3 } from 'lucide-react';
+import { Activity, Heart, BarChart3 } from 'lucide-react';
 
 export const HealthAnalytics = () => {
-  const healthMetrics = [
-    { name: 'Stress Level', value: 35, target: 20, status: 'improving' },
-    { name: 'Sleep Quality', value: 78, target: 85, status: 'good' },
-    { name: 'Energy Level', value: 82, target: 90, status: 'excellent' },
-    { name: 'Digestive Health', value: 65, target: 80, status: 'improving' },
-  ];
-
   const recentSessions = [
     { date: 'Nov 15', therapy: 'Abhyanga', improvement: '+12%' },
     { date: 'Nov 12', therapy: 'Shirodhara', improvement: '+8%' },
@@ -26,53 +18,37 @@ export const HealthAnalytics = () => {
         </div>
         <div>
           <h1 className="text-3xl font-bold">Health Analytics</h1>
-          <p className="text-muted-foreground">Track your wellness journey</p>
+          <p className="text-muted-foreground">Data will be available after AI model training</p>
         </div>
       </div>
 
-      {/* Health Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {healthMetrics.map((metric) => (
-          <Card key={metric.name} className="medical-card">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center justify-between">
-                {metric.name}
-                <Badge variant={metric.status === 'excellent' ? 'default' : 'secondary'}>
-                  {metric.status}
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span>Current: {metric.value}%</span>
-                  <span>Target: {metric.target}%</span>
-                </div>
-                <Progress value={metric.value} className="progress-glow" />
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>Trending upward</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {/* Model Training Status Card */}
+      <Card className="medical-card">
+        <CardContent className="text-center space-y-4 p-10">
+          <Heart className="mx-auto w-14 h-14 text-muted-foreground" />
+          <p className="text-lg font-semibold">
+            Health analytics and insights will be displayed here once the AI-powered feedback model has been trained and validated.
+          </p>
+          <p className="text-sm text-muted-foreground italic">
+            This AI model uses patient feedback and session data to provide personalized wellness insights.
+          </p>
+        </CardContent>
+      </Card>
 
-      {/* Analytics Chart Placeholder */}
+      {/* Placeholder for future charts */}
       <Card className="medical-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5" />
-            Wellness Trends
+            Wellness Trends (Coming Soon)
           </CardTitle>
-          <CardDescription>Your health improvements over time</CardDescription>
+          <CardDescription>Your personalized health improvement data over time</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-64 bg-muted/30 rounded-lg flex items-center justify-center">
             <div className="text-center space-y-2">
               <BarChart3 className="w-12 h-12 text-muted-foreground mx-auto" />
-              <p className="text-muted-foreground">Interactive Chart Coming Soon</p>
+              <p className="text-muted-foreground">Interactive charts will appear here after model deployment.</p>
             </div>
           </div>
         </CardContent>
