@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-export type UserRole = 'patient' | 'practitioner' | 'clinic';
+export type UserRole = 'patient' | 'practitioner' | 'clinic' | 'admin';
 
 interface User {
   username: string;
@@ -21,6 +21,7 @@ const users = [
   { username: 'patient', password: 'P@tient!2025', role: 'patient' as UserRole, name: 'Patient User' },
   { username: 'doctor', password: 'Doctor@2025', role: 'practitioner' as UserRole, name: 'Dr. Smith' },
   { username: 'clinic', password: 'Clinic@2025', role: 'clinic' as UserRole, name: 'Clinic Admin' },
+  { username: 'admin', password: 'Admin@2025', role: 'admin' as UserRole, name: 'System Administrator' },
 ];
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -60,7 +61,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');

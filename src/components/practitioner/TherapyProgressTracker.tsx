@@ -5,32 +5,76 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { User, CheckCircle, Clock, Circle, TrendingUp } from "lucide-react";
+import { useState } from "react";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, User, CheckCircle, Clock, Circle } from "lucide-react";
 
 export const TherapyProgressTracker = () => {
   const patients = [
     {
       name: "Rajesh Kumar",
-      step: 3,
-      total: 5,
+      age: 50,
+      condition: "Chronic Stress",
       therapy: "Panchakarma Detox",
       progress: 75,
+      step: 3,
+      totalSteps: 5,
+      lastVisit: "2 days ago",
+      totalSessions: 16,
+      sessionsCompleted: 12,
+      status: "active",
     },
     {
       name: "Neha Patel",
-      step: 4,
-      total: 5,
+      age: 38,
+      condition: "Digestive Issues",
       therapy: "Digestive Healing",
       progress: 90,
+      step: 4,
+      totalSteps: 5,
+      lastVisit: "1 week ago",
+      totalSessions: 20,
+      sessionsCompleted: 18,
+      status: "active",
     },
     {
       name: "Deepak Shah",
-      step: 2,
-      total: 4,
+      age: 44,
+      condition: "Stress Relief",
       therapy: "Stress Relief",
       progress: 55,
+      step: 2,
+      totalSteps: 4,
+      lastVisit: "3 days ago",
+      totalSessions: 14,
+      sessionsCompleted: 7,
+      status: "active",
+    },
+    {
+      name: "Anjali Sharma",
+      age: 29,
+      condition: "Women's Health",
+      therapy: "Women’s Health Support",
+      progress: 62,
+      step: 3,
+      totalSteps: 5,
+      lastVisit: "5 days ago",
+      totalSessions: 12,
+      sessionsCompleted: 8,
+      status: "active",
+    },
+    {
+      name: "Rohit Mehta",
+      age: 52,
+      condition: "Joint Pain",
+      therapy: "Pain Management",
+      progress: 80,
+      step: 4,
+      totalSteps: 6,
+      lastVisit: "Yesterday",
+      totalSessions: 18,
+      sessionsCompleted: 15,
+      status: "active",
     },
   ];
 
@@ -40,41 +84,86 @@ export const TherapyProgressTracker = () => {
     "Main Treatment",
     "Recovery",
     "Follow-up",
+    "Maintenance",
   ];
 
+  const [selectedPatientIndex, setSelectedPatientIndex] = useState(null);
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center shadow-md">
-          <TrendingUp className="w-6 h-6 text-white" />
-        </div>
-        <div>
-          <h1 className="text-3xl font-bold">Therapy Progress Tracker</h1>
-          <p className="text-muted-foreground">Monitor patient treatment phases</p>
-        </div>
+    <div className="flex flex-col md:flex-row gap-6">
+      {/* Patients List */}
+      <div className="md:w-1/3 space-y-4">
+        <h2 className="text-2xl font-semibold">Patients</h2>
+        {patients.map((patient, index) => (
+          <Card
+            key={index}
+            onClick={() =>
+              setSelectedPatientIndex(
+                selectedPatientIndex === index ? null : index
+              )
+            }
+            className={`cursor-pointer p-4 ${
+              selectedPatientIndex === index
+                ? "border-2 border-primary shadow-md"
+                : "border border-muted rounded"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <User className="w-6 h-6 text-primary" />
+              <div>
+                <p className="font-medium">{patient.name}</p>
+                <p className="text-xs text-muted-foreground">{patient.condition}</p>
+              </div>
+            </div>
+          </Card>
+        ))}
       </div>
 
-      {/* Patients Progress Cards */}
-      <div className="grid gap-6">
-        {patients.map((patient, i) => (
-          <Card key={i} className="medical-card shadow-sm hover:shadow-md transition-shadow duration-300">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="w-5 h-5 text-primary" />
-                {patient.name}
-              </CardTitle>
-              <CardDescription>{patient.therapy} Program</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-5">
-                <Progress value={patient.progress} className="progress-glow h-4 rounded" />
+      {/* Selected Patient Details */}
+      <div className="md:w-2/3">
+        {selectedPatientIndex !== null ? (
+          <>
+            <Card className="medical-card shadow-md mb-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="w-5 h-5 text-primary" />
+                  {patients[selectedPatientIndex].name} - {patients[selectedPatientIndex].therapy}
+                </CardTitle>
+                <CardDescription>
+                  Age: {patients[selectedPatientIndex].age} • Last Visit: {patients[selectedPatientIndex].lastVisit} • Status: {patients[selectedPatientIndex].status}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4">
+                  Condition: {patients[selectedPatientIndex].condition}
+                </p>
+                <Progress
+                  value={patients[selectedPatientIndex].progress}
+                  className="progress-glow h-4 rounded mb-2"
+                />
+                <p className="text-sm mb-4">
+                  Progress: {patients[selectedPatientIndex].progress}%
+                </p>
+                <p className="text-sm">
+                  Sessions Completed: {patients[selectedPatientIndex].sessionsCompleted} / {patients[selectedPatientIndex].totalSessions}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="medical-card shadow-md">
+              <CardHeader>
+                <CardTitle>Treatment Steps</CardTitle>
+              </CardHeader>
+              <CardContent>
                 <div className="flex justify-between items-center">
-                  {steps.slice(0, patient.total).map((step, idx) => {
-                    const isCompleted = idx < patient.step;
-                    const isCurrent = idx === patient.step - 1;
+                  {steps.slice(0, patients[selectedPatientIndex].totalSteps).map((step, idx) => {
+                    const isCompleted = idx < patients[selectedPatientIndex].step;
+                    const isCurrent = idx === patients[selectedPatientIndex].step - 1;
                     return (
-                      <div key={idx} className="flex flex-col items-center gap-2 min-w-[5rem]">
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center gap-2 min-w-[5rem]"
+                      >
                         {isCompleted ? (
                           <CheckCircle className="w-6 h-6 text-green-600" />
                         ) : isCurrent ? (
@@ -87,10 +176,12 @@ export const TherapyProgressTracker = () => {
                     );
                   })}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          </>
+        ) : (
+          <p className="text-muted-foreground">Select a patient to view details</p>
+        )}
       </div>
     </div>
   );

@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
-import { Heart, Lock, User } from 'lucide-react';
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { Heart, Lock, User, MessageCircle } from "lucide-react";
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated } = useAuth();
   const { toast } = useToast();
@@ -39,7 +45,6 @@ const Login = () => {
       <div className="w-full max-w-md space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          {/* Removed the circle div around logo */}
           <img
             src="/logo.jpg"
             alt="App Icon"
@@ -49,21 +54,16 @@ const Login = () => {
             <h1 className="text-3xl font-bold text-foreground">Panchakarma Care</h1>
             <p className="text-muted-foreground mt-2">Patient Management System</p>
           </div>
-        
-  <div>
-           
-          </div>
         </div>
 
         {/* Login Card */}
         <Card className="medical-card">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">Sign In</CardTitle>
-           
             <CardDescription className="text-center">
-            [Role-Based Access]<br></br>
+              [Role-Based Access]
+              <br />
               Enter your credentials to access your account
-            
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -79,11 +79,12 @@ const Login = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="pl-10"
+                    aria-label="Enter username"
                     required
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
@@ -95,13 +96,14 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10"
+                    aria-label="Enter password"
                     required
                   />
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full medical-gradient"
                 disabled={isLoading}
               >
@@ -116,9 +118,18 @@ const Login = () => {
           <CardContent className="pt-6">
             <h3 className="font-medium mb-3 text-center">Demo Credentials</h3>
             <div className="space-y-2 text-sm">
-              <div><strong>Patient:</strong> patient / P@tient!2025</div>
-              <div><strong>Practitioner:</strong> doctor / Doctor@2025</div>
-              <div><strong>Clinic Admin:</strong> clinic / Clinic@2025</div>
+              <div>
+                <strong>Patient:</strong> patient / P@tient!2025
+              </div>
+              <div>
+                <strong>Practitioner:</strong> doctor / Doctor@2025
+              </div>
+              <div>
+                <strong>Clinic Admin:</strong> clinic / Clinic@2025
+              </div>
+              <div>
+                <strong>Admin:</strong> admin / Admin@2025
+              </div>
             </div>
           </CardContent>
         </Card>

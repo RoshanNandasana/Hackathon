@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   User,
   Stethoscope,
@@ -34,23 +33,23 @@ export const PractitionerProfile = () => {
   ];
 
   const certifications = [
-    { name: "Certified Panchakarma Specialist", year: "2018", authority: "NAMA" },
-    { name: "Ayurvedic Medicine Practitioner", year: "2015", authority: "California Board" },
-    { name: "Advanced Pulse Diagnosis", year: "2020", authority: "Ayurvedic Institute" },
+    { name: "Certified Panchakarma Specialist", year: "2018", authority: "Central Council of Indian Medicine" },
+    { name: "BAMS (Bachelor of Ayurvedic Medicine & Surgery)", year: "2015", authority: "Ayurveda University, Gujarat" },
+    { name: "Diploma in Pulse Diagnosis", year: "2020", authority: "Kerala Ayurveda Academy" },
   ];
 
   const specializations = [
     "Panchakarma Therapies",
     "Stress Management",
     "Digestive Disorders",
-    "Women's Health",
+    "Women’s Health",
     "Chronic Pain Management",
   ];
 
   const upcomingSessions = [
-    { patient: "Sarah Johnson", therapy: "Shirodhara", time: "10:00 AM", status: "confirmed" },
-    { patient: "Michael Chen", therapy: "Abhyanga", time: "11:30 AM", status: "confirmed" },
-    { patient: "Emily Davis", therapy: "Consultation", time: "2:00 PM", status: "pending" },
+    { patient: "Anjali Sharma", therapy: "Shirodhara", time: "10:00 AM", status: "confirmed" },
+    { patient: "Rohit Patel", therapy: "Abhyanga", time: "11:30 AM", status: "confirmed" },
+    { patient: "Neha Gupta", therapy: "Consultation", time: "2:00 PM", status: "pending" },
   ];
 
   return (
@@ -62,7 +61,7 @@ export const PractitionerProfile = () => {
             <Stethoscope className="w-8 h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">{`Welcome, Suresh kumar!`}</h1>
+            <h1 className="text-3xl font-bold">{`Welcome, Dr. Suresh Kumar!`}</h1>
             <p className="text-muted-foreground">Your practice dashboard</p>
           </div>
         </div>
@@ -102,7 +101,7 @@ export const PractitionerProfile = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm">dr.suresh.kumar@clinic.in</span>
+                <span className="text-sm">dr.suresh.kumar@ayushclinic.in</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-muted-foreground" />
@@ -110,11 +109,11 @@ export const PractitionerProfile = () => {
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm">Wellness Center, Mumbai</span>
+                <span className="text-sm">Ayush Wellness Center, Mumbai</span>
               </div>
               <div className="flex items-center gap-3">
                 <BookOpen className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm">License: AY-12345</span>
+                <span className="text-sm">License: AY-67890</span>
               </div>
             </div>
           </CardContent>

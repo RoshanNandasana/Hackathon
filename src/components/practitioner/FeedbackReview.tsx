@@ -10,25 +10,25 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { MessageCircle, Star, TrendingUp } from "lucide-react";
 
-export const FeedbackReview = () => {
+export const FeedbackReview: React.FC = () => {
   const feedbacks = [
     {
       patient: "Rajesh Kumar",
       rating: 5,
-      comment: "સત્ર ખૂબ જ સારું ગતિ છે, ખૂબ આરામદાયક અનુભવ.",
-      date: "2 દિવસ પહેલા",
+      comment: "Session was very smooth and relaxing.",
+      date: "2 days ago",
     },
     {
       patient: "Neha Patel",
       rating: 4,
-      comment: "અદ્ભુત સારવાર, મને ઘણું સારું લાગ્યું.",
-      date: "1 અઠવાડિયું પહેલા",
+      comment: "Great treatment, felt much better.",
+      date: "1 week ago",
     },
     {
       patient: "Deepak Shah",
       rating: 5,
-      comment: "શ્રેષ્ઠ સારવાર, પુરતું સુપરિશ!",
-      date: "3 દિવસ પહેલા",
+      comment: "Excellent treatment, fully recommended!",
+      date: "3 days ago",
     },
   ];
 
@@ -44,11 +44,9 @@ export const FeedbackReview = () => {
           <MessageCircle className="w-8 h-8 text-white" />
         </div>
         <div>
-          <h1 className="text-4xl font-extrabold leading-tight">
-            ફીડબેક સમીક્ષા
-          </h1>
+          <h1 className="text-4xl font-extrabold leading-tight">Feedback Review</h1>
           <p className="text-lg text-muted-foreground max-w-md">
-            દર્દીના સત્રોની રિવ્યુ અને દરજ્જા જોવા માટે.
+            View patient session reviews and ratings.
           </p>
         </div>
       </div>
@@ -62,7 +60,7 @@ export const FeedbackReview = () => {
             </div>
             <div>
               <p className="text-4xl font-bold text-gray-900">{averageRating}</p>
-              <p className="text-sm text-muted-foreground">સરેરાશ દરજ્જો</p>
+              <p className="text-sm">Average Rating</p>
             </div>
           </CardContent>
         </Card>
@@ -74,7 +72,7 @@ export const FeedbackReview = () => {
             </div>
             <div>
               <p className="text-4xl font-bold text-gray-900">{totalReviews}</p>
-              <p className="text-sm text-muted-foreground">કુલ રિવ્યુ</p>
+              <p className="text-sm">Total Reviews</p>
             </div>
           </CardContent>
         </Card>
@@ -86,7 +84,7 @@ export const FeedbackReview = () => {
             </div>
             <div>
               <p className="text-4xl font-bold text-gray-900">{satisfactionRate}%</p>
-              <p className="text-sm text-muted-foreground">સંતોષ દર</p>
+              <p className="text-sm">Satisfaction Rate</p>
             </div>
           </CardContent>
         </Card>
@@ -95,8 +93,8 @@ export const FeedbackReview = () => {
       {/* Individual Feedback */}
       <Card className="medical-card hover:shadow-lg transition-shadow duration-300">
         <CardHeader>
-          <CardTitle>તાજેતરના ફીડબેક</CardTitle>
-          <CardDescription>પેશન્ટના નવીનતમ અભિપ્રાયો અને ટિપ્પણીઓ</CardDescription>
+          <CardTitle>Recent Feedback</CardTitle>
+          <CardDescription>Latest patient reviews and comments</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -112,7 +110,7 @@ export const FeedbackReview = () => {
                     {Array.from({ length: fb.rating }).map((_, i) => (
                       <Star
                         key={i}
-                        className="w-5 h-5 text-yellow-400 fill-yellow-400"
+                        className="w-5 h-5 text-yellow-400"
                       />
                     ))}
                   </div>

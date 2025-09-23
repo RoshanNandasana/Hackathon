@@ -25,7 +25,7 @@ export const PatientRecordsAnalytics = () => {
   const patientData = [
     {
       id: 1,
-      name: 'Sarah Johnson',
+      name: 'Anjali Sharma',
       age: 34,
       condition: 'Chronic Stress',
       program: 'Panchakarma Detox',
@@ -36,7 +36,7 @@ export const PatientRecordsAnalytics = () => {
     },
     {
       id: 2,
-      name: 'Michael Chen',
+      name: 'Rohit Patel',
       age: 42,
       condition: 'Digestive Issues',
       program: 'Digestive Healing',
@@ -47,7 +47,7 @@ export const PatientRecordsAnalytics = () => {
     },
     {
       id: 3,
-      name: 'Emily Davis',
+      name: 'Neha Gupta',
       age: 28,
       condition: 'Sleep Disorders',
       program: 'Stress Relief',
@@ -58,7 +58,7 @@ export const PatientRecordsAnalytics = () => {
     },
     {
       id: 4,
-      name: 'Robert Wilson',
+      name: 'Rajesh Singh',
       age: 56,
       condition: 'Joint Pain',
       program: 'Pain Management',
@@ -74,10 +74,10 @@ export const PatientRecordsAnalytics = () => {
     { name: 'Stress Relief', patients: 12, percentage: 25 },
     { name: 'Digestive Healing', patients: 8, percentage: 16.7 },
     { name: 'Pain Management', patients: 6, percentage: 12.5 },
-    { name: 'Women\'s Health', patients: 4, percentage: 8.3 },
+    { name: "Women's Health", patients: 4, percentage: 8.3 },
   ];
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'active':
         return 'bg-green-100 text-green-800';
@@ -197,16 +197,16 @@ export const PatientRecordsAnalytics = () => {
                       <p className="font-medium">{patient.name}</p>
                       <p className="text-sm text-muted-foreground">Age: {patient.age}</p>
                     </div>
-                    
+
                     <div className="md:col-span-2">
                       <p className="text-sm font-medium">{patient.condition}</p>
                       <p className="text-xs text-muted-foreground">{patient.sessions} sessions</p>
                     </div>
-                    
+
                     <div className="md:col-span-2">
                       <p className="text-sm">{patient.program}</p>
                     </div>
-                    
+
                     <div className="md:col-span-2">
                       <div className="space-y-1">
                         <div className="flex justify-between text-sm">
@@ -216,14 +216,14 @@ export const PatientRecordsAnalytics = () => {
                         <Progress value={patient.progress} className="h-2" />
                       </div>
                     </div>
-                    
+
                     <div className="md:col-span-2">
                       <Badge className={getStatusColor(patient.status)}>
                         {patient.status}
                       </Badge>
                       <p className="text-xs text-muted-foreground mt-1">{patient.lastVisit}</p>
                     </div>
-                    
+
                     <div className="md:col-span-1">
                       <Button variant="outline" size="sm" className="gap-2">
                         <Eye className="w-4 h-4" />
