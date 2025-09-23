@@ -12,17 +12,21 @@ import {
 } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { Heart, Lock, User, MessageCircle } from "lucide-react";
+import { Lock, User } from "lucide-react";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
   const { toast } = useToast();
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    if (user?.role === "admin") {
+      return <Navigate to="/dashboard" replace />;
+    } else {
+      return <Navigate to="/dashboard" replace />;
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -36,8 +40,10 @@ const Login: React.FC = () => {
         description: "Invalid username or password",
         variant: "destructive",
       });
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

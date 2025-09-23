@@ -1,11 +1,16 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+
 import { PatientSidebar } from '@/components/PatientSidebar';
 import { PractitionerSidebar } from '@/components/PractitionerSidebar';
 import { ClinicSidebar } from '@/components/ClinicSidebar';
+import { AdminSidebar } from '@/components/AdminSidebar';
+
 import { PatientDashboard } from '@/components/dashboards/PatientDashboard';
 import { PractitionerDashboard } from '@/components/dashboards/PractitionerDashboard';
 import { ClinicDashboard } from '@/components/dashboards/ClinicDashboard';
+import { AdminDashboard } from '@/components/dashboards/AdminDashboard';
+
 
 const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
@@ -16,6 +21,8 @@ const Dashboard = () => {
 
   const renderSidebar = () => {
     switch (user.role) {
+      case 'admin':
+        return <AdminSidebar />;
       case 'patient':
         return <PatientSidebar />;
       case 'practitioner':
@@ -29,6 +36,8 @@ const Dashboard = () => {
 
   const renderDashboard = () => {
     switch (user.role) {
+      case 'admin':
+        return <AdminDashboard />;
       case 'patient':
         return <PatientDashboard />;
       case 'practitioner':
