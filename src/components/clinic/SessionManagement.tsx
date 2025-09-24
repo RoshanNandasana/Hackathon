@@ -61,7 +61,7 @@ export const SessionManagement = () => {
             <Calendar className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-900 leading-tight">
+          <h1 className="text-3xl font-bold">
               Session Management
             </h1>
             <p className="text-muted-foreground text-base max-w-lg">

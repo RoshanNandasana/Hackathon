@@ -341,11 +341,11 @@ export const PractitionerCredentials = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="medical-gradient w-14 h-14 flex items-center justify-center rounded-lg shadow-lg">
-            <UserCheck className="w-8 h-8 text-white" />
+        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
+            <UserCheck className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-4xl font-extrabold leading-tight">
+          <h1 className="text-3xl font-bold">
               Practitioner Credentials
             </h1>
             <p className="text-lg text-muted-foreground max-w-md">

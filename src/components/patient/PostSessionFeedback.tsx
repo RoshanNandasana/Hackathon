@@ -20,7 +20,7 @@ import { MessageCircle, Calendar, Send, AlertCircle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 
-// Interface Definitions
+// ---------- Types ----------
 interface FeedbackQuestion {
   id: string;
   question: string;
@@ -46,11 +46,11 @@ interface PanchakarmaFeedback {
   comment: string;
   status: "submitted" | "draft";
   doctorResponse?: string;
-  prescriptionChanges?: string; // New field for prescription changes
+  prescriptionChanges?: string;
   customAnswers?: { [key: string]: any };
 }
 
-// Initial Data
+// ---------- Demo Data ----------
 const initialFeedback: PanchakarmaFeedback[] = [
   {
     sessionId: "1",
@@ -152,6 +152,7 @@ const feedbackStats = {
   completedFeedbacks: 6,
 };
 
+// ---------- Component ----------
 const PostSessionFeedback = () => {
   const [rating, setRating] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -162,163 +163,30 @@ const PostSessionFeedback = () => {
   const [alertType, setAlertType] = useState<"success" | "error">("success");
   const [alertMessage, setAlertMessage] = useState("");
   const [activeTab, setActiveTab] = useState("feedback");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [panchakarmaStage, setPanchakarmaStage] = useState("Purvakarma");
   const [customQuestions, setCustomQuestions] = useState<FeedbackQuestion[]>([]);
   const [answers, setAnswers] = useState<{ [key: string]: any }>({});
 
-  // Generate Custom Questions Based on Panchakarma Stage
+  // Generate stage-specific questions
   useEffect(() => {
     generateCustomQuestions(panchakarmaStage);
   }, [panchakarmaStage]);
 
   const generateCustomQuestions = (stage: string) => {
     let questions: FeedbackQuestion[] = [
-      {
-        id: "relief",
-        question: "How much relief did you experience from your symptoms?",
-        type: "select",
-        options: ["Significant", "Moderate", "Slight", "None"],
-      },
-      {
-        id: "sideEffects",
-        question: "Did you experience any side effects?",
-        type: "radio",
-        options: ["Yes", "No"],
-      },
-      {
-        id: "agni",
-        question: "How would you describe your Agni (digestive fire) after the session?",
-        type: "select",
-        options: ["Excellent", "Good", "Moderate", "Poor"],
-      },
-      {
-        id: "aharaVihara",
-        question: "Did you comply with Ahara-Vihara (diet and lifestyle) recommendations?",
-        type: "select",
-        options: ["Fully", "Partially", "Not at all"],
-      },
-      {
-        id: "rating",
-        question: "How would you rate the overall session?",
-        type: "select",
-        options: ["Excellent", "Good", "Fair", "Poor"],
-      },
-      {
-        id: "satisfaction",
-        question: "How satisfied are you with the session?",
-        type: "select",
-        options: ["Excellent", "Good", "Fair", "Poor"],
-      },
-      {
-        id: "sleepQuality",
-        question: "How has your sleep quality been since the last session?",
-        type: "select",
-        options: ["Excellent", "Good", "Average", "Poor"],
-      },
-      {
-        id: "energyLevel",
-        question: "How would you rate your energy level post-session?",
-        type: "select",
-        options: ["Excellent", "Good", "Average", "Poor"],
-      },
-      {
-        id: "mood",
-        question: "How would you describe your mood after the session?",
-        type: "select",
-        options: ["Happy", "Neutral", "Anxious", "Depressed"],
-      },
-      {
-        id: "appetiteChange",
-        question: "Has your appetite changed after the session?",
-        type: "select",
-        options: ["Increased", "Decreased", "No Change"],
-      },
-      {
-        id: "bowelRegularity",
-        question: "How regular are your bowel movements post-therapy?",
-        type: "select",
-        options: ["Daily", "Every other day", "Irregular"],
-      },
-      {
-        id: "urineObservation",
-        question: "What is the color or clarity of your urine?",
-        type: "select",
-        options: ["Clear", "Yellow", "Dark Yellow", "Other"],
-      },
-      {
-        id: "skinHealth",
-        question: "Have you noticed any changes in your skin health?",
-        type: "textarea",
-      },
-      {
-        id: "jointComfort",
-        question: "Have you experienced any improvement in joint comfort?",
-        type: "select",
-        options: ["Significant", "Moderate", "Slight", "None"],
-      },
-      {
-        id: "headachePresence",
-        question: "Did you experience headaches after the session?",
-        type: "radio",
-        options: ["Yes", "No"],
-      },
-      {
-        id: "fatigueLevel",
-        question: "How would you rate your fatigue level?",
-        type: "select",
-        options: ["None", "Mild", "Moderate", "Severe"],
-      },
+      { id: "relief", question: "How much relief did you experience?", type: "select", options: ["Significant", "Moderate", "Slight", "None"] },
+      { id: "sideEffects", question: "Any side effects?", type: "radio", options: ["Yes", "No"] },
+      { id: "agni", question: "How is your Agni (digestive fire)?", type: "select", options: ["Excellent", "Good", "Moderate", "Poor"] },
+      { id: "aharaVihara", question: "Did you follow Ahara-Vihara recommendations?", type: "select", options: ["Fully", "Partially", "Not at all"] },
+      { id: "rating", question: "Overall session rating?", type: "select", options: ["Excellent", "Good", "Fair", "Poor"] },
+      { id: "satisfaction", question: "Overall satisfaction?", type: "select", options: ["Excellent", "Good", "Fair", "Poor"] },
     ];
-
-    // Add stage-specific questions
     if (stage === "Purvakarma") {
       questions.push(
-        {
-          id: "oilEffectiveness",
-          question: "How effective was the oil application during Snehana?",
-          type: "select",
-          options: ["Very Effective", "Effective", "Neutral", "Ineffective"],
-        },
-        {
-          id: "sweatExperience",
-          question: "Did you experience adequate sweating during Swedana?",
-          type: "radio",
-          options: ["Yes", "No"],
-        },
-      );
-    } else if (stage === "Pradhanakarma") {
-      questions.push(
-        {
-          id: "vamanaFeedback",
-          question: "How did you feel after the Vamana process?",
-          type: "textarea",
-        },
-        {
-          id: "virechanaOutcome",
-          question: "What was the outcome of the Virechana therapy?",
-          type: "select",
-          options: ["Effective", "Partially Effective", "Ineffective"],
-        },
-      );
-    } else if (stage === "Paschatkarma") {
-      questions.push(
-        {
-          id: "dietAdherence",
-          question: "How well did you adhere to the post-therapy diet?",
-          type: "select",
-          options: ["Fully", "Partially", "Not at all"],
-        },
-        {
-          id: "rejuvenationFeeling",
-          question: "How rejuvenated do you feel after Paschatkarma?",
-          type: "select",
-          options: ["Very Rejuvenated", "Moderately", "Slightly", "Not at all"],
-        },
+        { id: "oilEffectiveness", question: "Effectiveness of oil application?", type: "select", options: ["Very Effective", "Effective", "Neutral", "Ineffective"] },
+        { id: "sweatExperience", question: "Adequate sweating during Swedana?", type: "radio", options: ["Yes", "No"] }
       );
     }
-
     setCustomQuestions(questions);
   };
 
@@ -327,58 +195,38 @@ const PostSessionFeedback = () => {
   };
 
   const submitFeedback = async () => {
-    if (
-      !answers.relief ||
-      !answers.agni ||
-      !answers.aharaVihara ||
-      !answers.rating ||
-      !answers.satisfaction
-    ) {
+    if (!answers.relief || !answers.agni || !answers.aharaVihara || !answers.rating || !answers.satisfaction) {
       setAlertType("error");
       setAlertMessage("Please fill all required fields.");
       setShowAlert(true);
       return;
     }
-
     setIsSubmitting(true);
-    setError(null);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
-
-      const newFeedback: PanchakarmaFeedback = {
-        sessionId: `session-${Date.now()}`,
-        patientName: "Current Patient", // Replace with actual user data
-        practitioner: upcomingSession.practitioner,
-        therapy: upcomingSession.therapy,
-        date: new Date().toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }),
-        rating: answers.rating,
-        relief: answers.relief,
-        sideEffects: answers.sideEffects || "No",
-        agni: answers.agni,
-        aharaVihara: answers.aharaVihara,
-        satisfaction: answers.satisfaction,
-        comment: feedback,
-        status: "submitted",
-        customAnswers: { ...answers },
-      };
-
-      setSubmittedFeedback(newFeedback);
-      setFeedbackHistory((prev) => [...prev, newFeedback]);
-      setRating("");
-      setFeedback("");
-      setAnswers({});
-      setAlertType("success");
-      setAlertMessage("Feedback submitted successfully!");
-      setShowAlert(true);
-    } catch (err) {
-      setError("Failed to submit feedback. Please try again.");
-      setAlertType("error");
-      setAlertMessage("Submission failed. Please try again.");
-      setShowAlert(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+    await new Promise((res) => setTimeout(res, 1200));
+    const newFeedback: PanchakarmaFeedback = {
+      sessionId: `session-${Date.now()}`,
+      patientName: "Current Patient",
+      practitioner: upcomingSession.practitioner,
+      therapy: upcomingSession.therapy,
+      date: new Date().toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }),
+      rating: answers.rating,
+      relief: answers.relief,
+      sideEffects: answers.sideEffects || "No",
+      agni: answers.agni,
+      aharaVihara: answers.aharaVihara,
+      satisfaction: answers.satisfaction,
+      comment: feedback,
+      status: "submitted",
+      customAnswers: { ...answers },
+    };
+    setFeedbackHistory((p) => [...p, newFeedback]);
+    setRating("");
+    setFeedback("");
+    setAnswers({});
+    setIsSubmitting(false);
+    setAlertType("success");
+    setAlertMessage("Feedback submitted successfully!");
+    setShowAlert(true);
   };
 
   const saveAsDraft = () => {
@@ -398,7 +246,7 @@ const PostSessionFeedback = () => {
       status: "draft",
       customAnswers: { ...answers },
     };
-    setFeedbackHistory((prev) => [...prev, draft]);
+    setFeedbackHistory((p) => [...p, draft]);
     setRating("");
     setFeedback("");
     setAnswers({});
@@ -408,22 +256,19 @@ const PostSessionFeedback = () => {
   };
 
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="bg-gradient-to-br from-blue-500 to-indigo-600 w-12 h-12 rounded-lg flex items-center justify-center">
+        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
           <MessageCircle className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Post-Session Feedback</h1>
+          <h1 className="text-3xl font-bold">Post-Session Feedback</h1>
           <p className="text-muted-foreground">Share your Panchakarma therapy experience</p>
-          <p className="text-sm text-muted-foreground">
-            Last updated: Wednesday, September 24, 2025, 05:00 PM IST
-          </p>
         </div>
       </div>
 
-      {/* Tabs for Feedback, History, and Stats */}
+      {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="feedback">Submit Feedback</TabsTrigger>
@@ -431,9 +276,9 @@ const PostSessionFeedback = () => {
           <TabsTrigger value="stats">Feedback Stats</TabsTrigger>
         </TabsList>
 
-        {/* Feedback Submission Tab */}
+        {/* Feedback Form */}
         <TabsContent value="feedback">
-          <Card className="border-none shadow-lg">
+          <Card className="medical-card">
             <CardHeader>
               <CardTitle>Rate Your Session</CardTitle>
               <CardDescription>
@@ -442,16 +287,15 @@ const PostSessionFeedback = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-3">
-                <Label>How would you rate this session?</Label>
+                <Label>Session Rating</Label>
                 <Select value={rating} onValueChange={setRating}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select rating" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Excellent">Excellent</SelectItem>
-                    <SelectItem value="Good">Good</SelectItem>
-                    <SelectItem value="Fair">Fair</SelectItem>
-                    <SelectItem value="Poor">Poor</SelectItem>
+                    {["Excellent", "Good", "Fair", "Poor"].map((opt) => (
+                      <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -460,40 +304,26 @@ const PostSessionFeedback = () => {
                 <div key={q.id} className="space-y-2">
                   <Label>{q.question}</Label>
                   {q.type === "textarea" && (
-                    <Textarea
-                      value={answers[q.id] || ""}
-                      onChange={(e) => handleAnswerChange(q.id, e.target.value)}
-                      placeholder={`Enter your ${q.question.toLowerCase()}...`}
-                      rows={4}
-                    />
+                    <Textarea value={answers[q.id] || ""} onChange={(e) => handleAnswerChange(q.id, e.target.value)} rows={4} />
                   )}
                   {q.type === "radio" && q.options && (
-                    <RadioGroup
-                      value={answers[q.id] || ""}
-                      onValueChange={(value) => handleAnswerChange(q.id, value)}
-                      className="space-y-2"
-                    >
-                      {q.options.map((option) => (
-                        <div key={option} className="flex items-center space-x-2">
-                          <RadioGroupItem value={option} id={`${q.id}-${option}`} />
-                          <Label htmlFor={`${q.id}-${option}`}>{option}</Label>
+                    <RadioGroup value={answers[q.id] || ""} onValueChange={(v) => handleAnswerChange(q.id, v)}>
+                      {q.options.map((o) => (
+                        <div key={o} className="flex items-center space-x-2">
+                          <RadioGroupItem value={o} id={`${q.id}-${o}`} />
+                          <Label htmlFor={`${q.id}-${o}`}>{o}</Label>
                         </div>
                       ))}
                     </RadioGroup>
                   )}
                   {q.type === "select" && q.options && (
-                    <Select
-                      value={answers[q.id] || ""}
-                      onValueChange={(value) => handleAnswerChange(q.id, value)}
-                    >
+                    <Select value={answers[q.id] || ""} onValueChange={(v) => handleAnswerChange(q.id, v)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select an option" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        {q.options.map((option) => (
-                          <SelectItem key={option} value={option}>
-                            {option}
-                          </SelectItem>
+                        {q.options.map((o) => (
+                          <SelectItem key={o} value={o}>{o}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -504,43 +334,26 @@ const PostSessionFeedback = () => {
                       max={q.max || 100}
                       step={q.step || 1}
                       value={[answers[q.id] || q.min || 0]}
-                      onValueChange={(value) => handleAnswerChange(q.id, value[0])}
+                      onValueChange={(val) => handleAnswerChange(q.id, val[0])}
                     />
                   )}
                   {q.type === "switch" && (
-                    <Switch
-                      checked={answers[q.id] || false}
-                      onCheckedChange={(checked) => handleAnswerChange(q.id, checked)}
-                    />
+                    <Switch checked={answers[q.id] || false} onCheckedChange={(c) => handleAnswerChange(q.id, c)} />
                   )}
                 </div>
               ))}
 
               <div className="space-y-3">
                 <Label htmlFor="comment">Additional Comments</Label>
-                <Textarea
-                  id="comment"
-                  value={feedback}
-                  onChange={(e) => setFeedback(e.target.value)}
-                  placeholder="Tell us about your therapy session..."
-                  rows={4}
-                />
+                <Textarea id="comment" value={feedback} onChange={(e) => setFeedback(e.target.value)} rows={4} />
               </div>
 
               <div className="flex gap-3">
-                <Button
-                  className="gap-2"
-                  disabled={isSubmitting || !rating}
-                  onClick={submitFeedback}
-                >
+                <Button className="gap-2" disabled={isSubmitting || !rating} onClick={submitFeedback}>
                   <Send className="w-4 h-4" />
                   {isSubmitting ? "Submitting..." : "Submit Feedback"}
                 </Button>
-                <Button
-                  variant="outline"
-                  disabled={isSubmitting}
-                  onClick={saveAsDraft}
-                >
+                <Button variant="outline" disabled={isSubmitting} onClick={saveAsDraft}>
                   Save as Draft
                 </Button>
               </div>
@@ -556,9 +369,9 @@ const PostSessionFeedback = () => {
           </Card>
         </TabsContent>
 
-        {/* Feedback History Tab */}
+        {/* Feedback History */}
         <TabsContent value="history">
-          <Card className="border-none shadow-lg">
+          <Card className="medical-card">
             <CardHeader>
               <CardTitle>Your Previous Feedback</CardTitle>
               <CardDescription>View your therapy session experiences</CardDescription>
@@ -602,10 +415,10 @@ const PostSessionFeedback = () => {
           </Card>
         </TabsContent>
 
-        {/* Feedback Stats Tab */}
+        {/* Stats */}
         <TabsContent value="stats">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="border-none shadow-lg">
+            <Card className="medical-card">
               <CardHeader>
                 <CardTitle>Feedback Statistics</CardTitle>
                 <CardDescription>Overview of your feedback history</CardDescription>
@@ -647,16 +460,14 @@ const PostSessionFeedback = () => {
       </Tabs>
 
       {/* Patient Progress */}
-      <Card className="border-none shadow-lg">
+      <Card className="medical-card">
         <CardHeader>
           <CardTitle>Patient Progress</CardTitle>
           <CardDescription>Track your Panchakarma journey</CardDescription>
         </CardHeader>
         <CardContent>
           <Progress value={50} className="w-full" />
-          <p className="text-sm text-muted-foreground">
-            Sessions completed: 5 of 10
-          </p>
+          <p className="text-sm text-muted-foreground">Sessions completed: 5 of 10</p>
         </CardContent>
       </Card>
     </div>

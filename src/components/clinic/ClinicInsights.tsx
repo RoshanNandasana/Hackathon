@@ -174,12 +174,18 @@ const ClinicPerformanceAnalytics = () => {
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h1 className="text-4xl font-bold text-foreground">Clinic Performance Analytics</h1>
-            <p className="text-sm text-muted-foreground">
-              Last updated: Wednesday, September 24, 2025, 03:30 PM IST
-            </p>
-          </div>
+        <div className="flex items-center gap-3">
+  <div className="bg-gradient-to-r from-blue-500 to-indigo-500 w-12 h-12 rounded-lg flex items-center justify-center">
+    <BarChart3 className="w-6 h-6 text-white" />
+  </div>
+  <div>
+    <h1 className="text-3xl font-bold text-foreground">Clinic Performance Analytics</h1>
+    <p className="text-sm text-muted-foreground">
+      Last updated: Wednesday, September 24, 2025, 03:30 PM IST
+    </p>
+  </div>
+</div>
+
           <div className="flex items-center gap-4">
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
               <SelectTrigger className="w-[180px]">

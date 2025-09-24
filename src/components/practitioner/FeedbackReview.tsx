@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Card,
@@ -12,10 +11,16 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { MessageCircle, Calendar, Send, AlertCircle } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { MessageCircle, Send, AlertCircle } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-// Interface Definitions (reused from patient side)
 interface PanchakarmaFeedback {
   sessionId: string;
   patientName: string;
@@ -35,7 +40,6 @@ interface PanchakarmaFeedback {
   customAnswers?: { [key: string]: any };
 }
 
-// Initial Data (reused from patient side, grouped by patient)
 const initialFeedback: PanchakarmaFeedback[] = [
   {
     sessionId: "1",
@@ -124,19 +128,16 @@ const initialFeedback: PanchakarmaFeedback[] = [
   },
 ];
 
-// Group feedbacks by patient
 const groupFeedbacksByPatient = (feedbacks: PanchakarmaFeedback[]) => {
-  return feedbacks.reduce((acc: { [patient: string]: PanchakarmaFeedback[] }, feedback) => {
-    if (!acc[feedback.patientName]) {
-      acc[feedback.patientName] = [];
-    }
-    acc[feedback.patientName].push(feedback);
+  return feedbacks.reduce((acc: { [patient: string]: PanchakarmaFeedback[] }, f) => {
+    if (!acc[f.patientName]) acc[f.patientName] = [];
+    acc[f.patientName].push(f);
     return acc;
   }, {});
 };
 
 const DoctorFeedbackReview: React.FC = () => {
-  const [feedbackHistory, setFeedbackHistory] = useState<PanchakarmaFeedback[]>(initialFeedback);
+  const [feedbackHistory, setFeedbackHistory] = useState(initialFeedback);
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null);
   const [selectedFeedbackId, setSelectedFeedbackId] = useState<string | null>(null);
   const [doctorReply, setDoctorReply] = useState("");
@@ -147,43 +148,39 @@ const DoctorFeedbackReview: React.FC = () => {
 
   const groupedFeedbacks = groupFeedbacksByPatient(feedbackHistory);
 
-  const handleSelectPatient = (patient: string) => {
-    setSelectedPatient(patient);
+  const handleSelectPatient = (p: string) => {
+    setSelectedPatient(p);
     setSelectedFeedbackId(null);
     setDoctorReply("");
   };
 
-  const handleSelectFeedback = (sessionId: string) => {
-    setSelectedFeedbackId(sessionId);
-    const feedback = feedbackHistory.find((f) => f.sessionId === sessionId);
-    setDoctorReply(feedback?.doctorResponse || "");
+  const handleSelectFeedback = (id: string) => {
+    setSelectedFeedbackId(id);
+    const fb = feedbackHistory.find((f) => f.sessionId === id);
+    setDoctorReply(fb?.doctorResponse || "");
   };
 
-  const submitReply = async (sessionId: string) => {
+  const submitReply = async (id: string) => {
     if (!doctorReply.trim()) {
       setAlertType("error");
       setAlertMessage("Please enter a reply before submitting.");
       setShowAlert(true);
       return;
     }
-
     setIsSubmitting(true);
-
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-
+      await new Promise((res) => setTimeout(res, 1000));
       setFeedbackHistory((prev) =>
         prev.map((f) =>
-          f.sessionId === sessionId ? { ...f, doctorResponse: doctorReply } : f
+          f.sessionId === id ? { ...f, doctorResponse: doctorReply } : f
         )
       );
-
       setAlertType("success");
       setAlertMessage("Reply submitted successfully!");
       setShowAlert(true);
       setSelectedFeedbackId(null);
       setDoctorReply("");
-    } catch (err) {
+    } catch {
       setAlertType("error");
       setAlertMessage("Failed to submit reply. Please try again.");
       setShowAlert(true);
@@ -193,15 +190,17 @@ const DoctorFeedbackReview: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen">
-      {/* Header */}
+    <div className="space-y-6">
+      {/* Header matches Tracker/Planner spacing */}
       <div className="flex items-center gap-3">
-        <div className="bg-gradient-to-br from-blue-500 to-indigo-600 w-12 h-12 rounded-lg flex items-center justify-center">
+        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
           <MessageCircle className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Patient Feedback Review</h1>
-          <p className="text-muted-foreground">Review patient feedbacks and provide responses</p>
+          <h1 className="text-3xl font-bold">Patient Feedback Review</h1>
+          <p className="text-muted-foreground">
+            Review patient feedbacks and provide responses
+          </p>
           <p className="text-sm text-muted-foreground">
             Last updated: Wednesday, September 24, 2025, 04:44 PM IST
           </p>
@@ -209,7 +208,7 @@ const DoctorFeedbackReview: React.FC = () => {
       </div>
 
       {selectedPatient ? (
-        <Card className="border-none shadow-lg">
+        <Card className="medical-card shadow-md">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>{selectedPatient}'s Feedback History</CardTitle>
@@ -298,16 +297,21 @@ const DoctorFeedbackReview: React.FC = () => {
             )}
 
             {showAlert && (
-              <Alert variant={alertType === "success" ? "default" : "destructive"} className="mt-4">
+              <Alert
+                variant={alertType === "success" ? "default" : "destructive"}
+                className="mt-4"
+              >
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>{alertType === "success" ? "Success" : "Error"}</AlertTitle>
+                <AlertTitle>
+                  {alertType === "success" ? "Success" : "Error"}
+                </AlertTitle>
                 <AlertDescription>{alertMessage}</AlertDescription>
               </Alert>
             )}
           </CardContent>
         </Card>
       ) : (
-        <Card className="border-none shadow-lg">
+        <Card className="medical-card shadow-md">
           <CardHeader>
             <CardTitle>Patient List</CardTitle>
             <CardDescription>Select a patient to view their feedback</CardDescription>
@@ -316,12 +320,14 @@ const DoctorFeedbackReview: React.FC = () => {
             {Object.keys(groupedFeedbacks).map((patient) => (
               <div
                 key={patient}
-                className="p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer"
+                className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300 cursor-pointer"
                 onClick={() => handleSelectPatient(patient)}
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">{patient}</h3>
-                  <Badge variant="secondary">{groupedFeedbacks[patient].length} Feedbacks</Badge>
+                  <Badge variant="secondary">
+                    {groupedFeedbacks[patient].length} Feedbacks
+                  </Badge>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">
                   Last feedback: {groupedFeedbacks[patient][0].date}

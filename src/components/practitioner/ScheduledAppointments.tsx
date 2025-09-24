@@ -41,21 +41,19 @@ export const ScheduledAppointments = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="medical-gradient w-14 h-14 rounded-lg flex items-center justify-center shadow-lg">
-          <Calendar className="w-7 h-7 text-white" />
+        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
+          <Calendar className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-4xl font-extrabold leading-tight text-gray-900">
-            Scheduled Appointments
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-            Manage and review your upcoming patient sessions efficiently.
+          <h1 className="text-3xl font-bold">Scheduled Appointments</h1>
+          <p className="text-muted-foreground">
+            Manage and review your upcoming patient sessions efficiently
           </p>
         </div>
       </div>
 
       {/* Appointments List */}
-      <Card className="medical-card shadow-md hover:shadow-lg transition-shadow duration-300">
+      <Card className="medical-card shadow-md">
         <CardHeader>
           <CardTitle>Upcoming Appointments</CardTitle>
           <CardDescription>
@@ -68,31 +66,32 @@ export const ScheduledAppointments = () => {
             {appointments.map((apt, idx) => (
               <div
                 key={idx}
-                className="p-6 border border-gray-200 rounded-lg flex flex-col md:grid md:grid-cols-6 md:items-center gap-4 hover:shadow-md transition-shadow duration-200"
+                className="p-4 border border-muted rounded-lg flex flex-col md:grid md:grid-cols-6 md:items-center gap-4 hover:bg-muted/30 transition-colors"
               >
+                {/* Patient */}
                 <div className="md:col-span-2 flex items-center gap-3">
                   <User className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-gray-900 truncate">
-                    {apt.patient}
-                  </span>
+                  <span className="font-medium">{apt.patient}</span>
                 </div>
 
-                <div className="text-gray-700 truncate">
-                  <span>{apt.therapy}</span>
-                </div>
+                {/* Therapy */}
+                <div className="text-sm text-gray-700">{apt.therapy}</div>
 
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Clock className="w-5 h-5" />
+                {/* Date & Time */}
+                <div className="flex items-center gap-2 text-gray-600 text-sm">
+                  <Clock className="w-4 h-4" />
                   <span>
                     {apt.date} {apt.time}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-600">
-                  <MapPin className="w-5 h-5" />
+                {/* Room */}
+                <div className="flex items-center gap-2 text-gray-600 text-sm">
+                  <MapPin className="w-4 h-4" />
                   <span>{apt.room}</span>
                 </div>
 
+                {/* Status & Action */}
                 <div className="flex items-center justify-end space-x-2">
                   <Badge
                     variant={
