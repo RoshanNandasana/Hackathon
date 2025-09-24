@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ClinicFacility } from '@/components/clinic/ClinicFacility';
 import { PractitionerCredentials } from '@/components/clinic/PractitionerCredentials';
 import { SessionManagement } from '@/components/clinic/SessionManagement';
-import { ClinicInsights } from '@/components/clinic/ClinicInsights';
+import  ClinicPerformanceAnalytics  from '@/components/clinic/ClinicInsights';
 
 export const ClinicDashboard = () => {
   return (
@@ -12,7 +12,7 @@ export const ClinicDashboard = () => {
         <Route path="/facility" element={<ClinicFacility />} />
         <Route path="/credentials" element={<PractitionerCredentials />} />
         <Route path="/sessions" element={<SessionManagement />} />
-        <Route path="/insights" element={<ClinicInsights />} />
+        <Route path="/insights" element={<ClinicPerformanceAnalytics />} />
       </Routes>
     </div>
   );
