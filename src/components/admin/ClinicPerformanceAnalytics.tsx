@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, Users, MessageCircle, UserCheck } from 'lucide-react';
+import { Star, Users, MessageCircle, UserCheck, Calendar } from 'lucide-react';
 
 // Interfaces for type safety
 interface Doctor {
@@ -318,13 +318,16 @@ const ClinicDetail: React.FC<{ clinic: Clinic; onBack: () => void }> = ({ clinic
   };
 
   return (
-    <div className="p-4 max-w-7xl mx-auto">
-      <button
-        onClick={onBack}
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-      >
-        Back to Clinics
-      </button>
+    <div className="space-y-6 p-4 max-w-7xl mx-auto">
+      <div className="flex items-center gap-3">
+        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
+          <Calendar className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h1 className="text-3xl font-bold">{clinic.name}</h1>
+          <p className="text-muted-foreground">Clinic Details</p>
+        </div>
+      </div>
       <Card>
         <CardHeader>
           <CardTitle>{clinic.name}</CardTitle>
@@ -346,6 +349,12 @@ const ClinicDetail: React.FC<{ clinic: Clinic; onBack: () => void }> = ({ clinic
           {renderTabContent()}
         </CardContent>
       </Card>
+      <button
+        onClick={onBack}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+      >
+        Back to Clinics
+      </button>
     </div>
   );
 };
@@ -366,9 +375,16 @@ const ClinicPerformanceAnalytics: React.FC = () => {
   );
 
   return (
-    <div className="space-y-8 p-4 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-semibold">Clinic Performance Analytics</h2>
-      
+    <div className="space-y-6 p-4 max-w-7xl mx-auto">
+      <div className="flex items-center gap-3">
+        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
+          <Calendar className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h1 className="text-3xl font-bold">Clinic Performance Analytics</h1>
+          <p className="text-muted-foreground">Monitor and analyze clinic performance metrics</p>
+        </div>
+      </div>
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="flex-1">
           <label htmlFor="search" className="block text-sm font-medium mb-1">Search by Name</label>
@@ -396,13 +412,12 @@ const ClinicPerformanceAnalytics: React.FC = () => {
           </select>
         </div>
       </div>
-      
       <div className="grid grid-cols-1 gap-6">
         {filteredClinics.length > 0 ? (
           filteredClinics.map((clinic) => (
             <Card
               key={clinic.id}
-              className="medical-card hover:shadow-lg cursor-pointer transition-shadow"
+              className="hover:shadow-lg cursor-pointer transition-shadow"
               onClick={() => setSelectedClinic(clinic)}
             >
               <CardHeader>
