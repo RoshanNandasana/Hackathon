@@ -353,49 +353,89 @@ const ClinicDetail: React.FC<{ clinic: Clinic; onBack: () => void }> = ({ clinic
 // Main Clinic Performance Analytics Component
 const ClinicPerformanceAnalytics: React.FC = () => {
   const [selectedClinic, setSelectedClinic] = useState<Clinic | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedStatus, setSelectedStatus] = useState<string>('All');
 
   if (selectedClinic) {
     return <ClinicDetail clinic={selectedClinic} onBack={() => setSelectedClinic(null)} />;
   }
 
+  const filteredClinics = clinicsData.filter(clinic => 
+    clinic.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (selectedStatus === 'All' || clinic.status === selectedStatus)
+  );
+
   return (
     <div className="space-y-8 p-4 max-w-7xl mx-auto">
       <h2 className="text-3xl font-semibold">Clinic Performance Analytics</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {clinicsData.map((clinic) => (
-          <Card
-            key={clinic.id}
-            className="medical-card hover:shadow-lg cursor-pointer transition-shadow"
-            onClick={() => setSelectedClinic(clinic)}
+      
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex-1">
+          <label htmlFor="search" className="block text-sm font-medium mb-1">Search by Name</label>
+          <input
+            id="search"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search clinics..."
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="flex-1">
+          <label htmlFor="status" className="block text-sm font-medium mb-1">Filter by Status</label>
+          <select
+            id="status"
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <CardHeader>
-              <CardTitle>{clinic.name}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Star className="w-5 h-5 text-yellow-400" />
-                <p className="text-lg font-semibold">{clinic.rating} Rating</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Users className="w-6 h-6 text-blue-600" />
-                <p>{clinic.activePatients} Active Patients</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <MessageCircle className="w-6 h-6 text-indigo-600" />
-                <p>{clinic.interactions} Interactions / Month</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <UserCheck className="w-6 h-6 text-green-600" />
-                <p>{clinic.doctors} Doctors</p>
-              </div>
-              <div>
-                <p className="font-semibold mb-1">Patient Satisfaction</p>
-                <Progress value={clinic.satisfactionRate} className="h-3" />
-                <p className="mt-1">{clinic.satisfactionRate}%</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+            <option value="All">All</option>
+            <option value="Operational">Operational</option>
+            <option value="Under Maintenance">Under Maintenance</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 gap-6">
+        {filteredClinics.length > 0 ? (
+          filteredClinics.map((clinic) => (
+            <Card
+              key={clinic.id}
+              className="medical-card hover:shadow-lg cursor-pointer transition-shadow"
+              onClick={() => setSelectedClinic(clinic)}
+            >
+              <CardHeader>
+                <CardTitle>{clinic.name}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Star className="w-5 h-5 text-yellow-400" />
+                  <p className="text-lg font-semibold">{clinic.rating} Rating</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Users className="w-6 h-6 text-blue-600" />
+                  <p>{clinic.activePatients} Active Patients</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MessageCircle className="w-6 h-6 text-indigo-600" />
+                  <p>{clinic.interactions} Interactions / Month</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <UserCheck className="w-6 h-6 text-green-600" />
+                  <p>{clinic.doctors} Doctors</p>
+                </div>
+                <div>
+                  <p className="font-semibold mb-1">Patient Satisfaction</p>
+                  <Progress value={clinic.satisfactionRate} className="h-3" />
+                  <p className="mt-1">{clinic.satisfactionRate}%</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <p className="text-center text-gray-600">No clinics found matching your criteria.</p>
+        )}
       </div>
     </div>
   );

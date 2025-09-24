@@ -23,9 +23,9 @@ const Login: React.FC = () => {
 
   if (isAuthenticated) {
     if (user?.role === "admin") {
-      return <Navigate to="/dashboard" replace />;
+      return <Navigate to="/dashboard/credentials" replace />;
     } else {
-      return <Navigate to="/dashboard" replace />;
+      return <Navigate to="/dashboard/credentials" replace />;
     }
   }
 
