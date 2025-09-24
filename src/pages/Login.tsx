@@ -21,11 +21,18 @@ const Login: React.FC = () => {
   const { login, isAuthenticated, user } = useAuth();
   const { toast } = useToast();
 
-  if (isAuthenticated) {
-    if (user?.role === "admin") {
-      return <Navigate to="/dashboard/credentials" replace />;
-    } else {
-      return <Navigate to="/dashboard/credentials" replace />;
+  if (isAuthenticated && user) {
+    switch (user.role) {
+      case "admin":
+        return <Navigate to="/dashboard/credentials" replace />;
+      case "practitioner":
+        return <Navigate to="/dashboard/profile" replace />;
+      case "clinic":
+        return <Navigate to="/dashboard/facility" replace />;
+      case "patient":
+        return <Navigate to="/dashboard/profile" replace />;
+      default:
+        return <Navigate to="/login" replace />;
     }
   }
 
@@ -67,7 +74,7 @@ const Login: React.FC = () => {
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">Sign In</CardTitle>
             <CardDescription className="text-center">
-              [Role-Based Access]
+              Role-Based Access
               <br />
               Enter your credentials to access your account
             </CardDescription>

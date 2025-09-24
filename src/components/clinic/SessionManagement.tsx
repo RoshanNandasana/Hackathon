@@ -19,37 +19,37 @@ export const SessionManagement = () => {
   const sessions = [
     {
       id: 1,
-      patient: "Sarah Johnson",
+      patient: "Priya Sharma",
       practitioner: "Dr. Suresh Kumar",
       therapy: "Shirodhara",
-      room: "Room 1",
+      room: "Treatment Room A",
       time: "10:00 AM",
       status: "active",
     },
     {
       id: 2,
-      patient: "Michael Chen",
+      patient: "Amit Patel",
       practitioner: "Dr. Rekha Sharma",
       therapy: "Abhyanga",
-      room: "Room 2",
+      room: "Treatment Room B",
       time: "11:30 AM",
       status: "scheduled",
     },
     {
       id: 3,
-      patient: "Emily Davis",
-      practitioner: "Dr. Suresh Kumar",
-      therapy: "Consultation",
-      room: "Office 1",
+      patient: "Anjali Reddy",
+      practitioner: "Dr. Vikram Singh",
+      therapy: "Panchakarma",
+      room: "Consultation Room",
       time: "2:00 PM",
       status: "completed",
     },
   ];
 
   const roomAvailability = [
-    { room: "Treatment Room 1", status: "occupied", nextAvailable: "11:00 AM" },
-    { room: "Treatment Room 2", status: "available", nextAvailable: "Now" },
-    { room: "Treatment Room 3", status: "maintenance", nextAvailable: "2:00 PM" },
+    { room: "Treatment Room A", status: "occupied", nextAvailable: "11:00 AM" },
+    { room: "Treatment Room B", status: "available", nextAvailable: "Now" },
+    { room: "Treatment Room C", status: "maintenance", nextAvailable: "2:00 PM" },
   ];
 
   return (
@@ -69,7 +69,6 @@ export const SessionManagement = () => {
             </p>
           </div>
         </div>
-
       </div>
 
       {/* Sessions and Room Availability Grid */}
@@ -121,7 +120,6 @@ export const SessionManagement = () => {
                       >
                         {session.status}
                       </Badge>
-                    
                     </div>
                   </div>
                 </div>
