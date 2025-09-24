@@ -171,124 +171,121 @@ const ClinicPerformanceAnalytics = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div className="space-y-6 p-4 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-  <div className="bg-gradient-to-r from-blue-500 to-indigo-500 w-12 h-12 rounded-lg flex items-center justify-center">
-    <BarChart3 className="w-6 h-6 text-white" />
-  </div>
-  <div>
-    <h1 className="text-3xl font-bold text-foreground">Clinic Performance Analytics</h1>
-    <p className="text-sm text-muted-foreground">
-      Last updated: Wednesday, September 24, 2025, 03:30 PM IST
-    </p>
-  </div>
-</div>
-
-          <div className="flex items-center gap-4">
-            <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select period" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="week">Last Week</SelectItem>
-                <SelectItem value="month">Last Month</SelectItem>
-                <SelectItem value="quarter">Last Quarter</SelectItem>
-                <SelectItem value="year">Last Year</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button onClick={handleExport} variant="outline" className="gap-2">
-              <Download className="w-4 h-4" />
-              Export CSV
-            </Button>
+          <div className="bg-gradient-to-r from-blue-500 to-indigo-500 w-12 h-12 rounded-lg flex items-center justify-center">
+            <BarChart3 className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Clinic Performance Analytics</h1>
+            <p className="text-muted-foreground">Monitor and analyze clinic performance metrics</p>
           </div>
         </div>
+        <div className="flex items-center gap-4">
+          <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select period" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="week">Last Week</SelectItem>
+              <SelectItem value="month">Last Month</SelectItem>
+              <SelectItem value="quarter">Last Quarter</SelectItem>
+              <SelectItem value="year">Last Year</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={handleExport} variant="outline" className="gap-2">
+            <Download className="w-4 h-4" />
+            Export CSV
+          </Button>
+        </div>
+      </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="therapy">Therapy Insights</TabsTrigger>
-            <TabsTrigger value="patients">Patient Insights</TabsTrigger>
-            <TabsTrigger value="performance">Performance</TabsTrigger>
-          </TabsList>
+      <Tabs defaultValue="overview" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="therapy">Therapy Insights</TabsTrigger>
+          <TabsTrigger value="patients">Patient Insights</TabsTrigger>
+          <TabsTrigger value="performance">Performance</TabsTrigger>
+        </TabsList>
 
-          <TabsContent value="overview" className="space-y-6">
-            <Card className="shadow-xl border-none overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
-                <CardTitle>Clinic Metrics</CardTitle>
-                <CardDescription>Key metrics at a glance</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                  {metrics.map((metric, index) => {
-                    const IconComponent = metric.icon;
-                    return (
-                      <div key={index} className="space-y-2">
-                        <IconComponent className="mx-auto text-blue-600 w-8 h-8" />
-                        <p className="text-3xl font-bold">
-                          {typeof metric.value === "number" ? metric.value : metric.value}
-                        </p>
-                        <p className="text-sm text-muted-foreground">{metric.label}</p>
-                        <div className="flex items-center justify-center gap-1 text-green-600">
-                          <TrendingUp className="w-4 h-4" />
-                          <span className="text-sm font-medium">{metric.change}</span>
-                        </div>
+        <TabsContent value="overview" className="space-y-6">
+          <Card className="shadow-xl border-none overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
+              <CardTitle>Clinic Metrics</CardTitle>
+              <CardDescription>Key metrics at a glance</CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                {metrics.map((metric, index) => {
+                  const IconComponent = metric.icon;
+                  return (
+                    <div key={index} className="space-y-2">
+                      <IconComponent className="mx-auto text-blue-600 w-8 h-8" />
+                      <p className="text-3xl font-bold">
+                        {typeof metric.value === "number" ? metric.value : metric.value}
+                      </p>
+                      <p className="text-sm text-muted-foreground">{metric.label}</p>
+                      <div className="flex items-center justify-center gap-1 text-green-600">
+                        <TrendingUp className="w-4 h-4" />
+                        <span className="text-sm font-medium">{metric.change}</span>
                       </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card className="shadow-xl border-none overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
-                <CardTitle>Session Trend</CardTitle>
-                <CardDescription>Sessions over time</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="h-[400px]">
-                  <Line
-                    data={visitorTrend}
+          <Card className="shadow-xl border-none overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
+              <CardTitle>Session Trend</CardTitle>
+              <CardDescription>Sessions over time</CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="h-[400px]">
+                <Line
+                  data={visitorTrend}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, title: { display: true, text: "Sessions" } } },
+                    plugins: { legend: { display: true, position: "top" } },
+                  }}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="therapy" className="space-y-6">
+          <Card className="shadow-xl border-none overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
+              <CardTitle>Therapy Popularity</CardTitle>
+              <CardDescription>Most requested treatments this month</CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="h-[300px]">
+                  <Pie
+                    data={therapyData}
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      scales: { y: { beginAtZero: true, title: { display: true, text: "Sessions" } } },
-                      plugins: { legend: { display: true, position: "top" } },
+                      plugins: { legend: { position: "right" } },
                     }}
                   />
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="therapy" className="space-y-6">
-            <Card className="shadow-xl border-none overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
-                <CardTitle>Therapy Popularity</CardTitle>
-                <CardDescription>Most requested treatments this month</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="h-[300px]">
-                    <Pie
-                      data={therapyData}
-                      options={{
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { position: "right" } },
-                      }}
-                    />
-                  </div>
-                  <div className="space-y-4">
-                    {therapyPopularity.map((therapy, idx) => (
-                      <div key={idx} className="flex items-center justify-between">
-                        <span className="font-medium">{therapy.name}</span>
-                        <span>{therapy.percentage}%</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="space-y-4">
+                  {therapyPopularity.map((therapy, idx) => (
+                    <div key={idx} className="flex items-center justify-between">
+                      <span className="font-medium">{therapy.name}</span>
+                      <span>{therapy.percentage}%</span>
+                    </div>
+                  ))}
                 </div>
+              </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -374,8 +371,7 @@ const ClinicPerformanceAnalytics = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    );
 };
 
 export default ClinicPerformanceAnalytics;

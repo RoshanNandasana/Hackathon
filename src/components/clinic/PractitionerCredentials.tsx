@@ -201,18 +201,21 @@ export const PractitionerCredentials = () => {
 
   if (selectedPractitioner) {
     return (
-      <div className="space-y-6 p-6 max-w-6xl mx-auto bg-gray-50">
+      <div className="space-y-6 p-4 max-w-7xl mx-auto">
         <button className="text-sm text-primary mb-4" onClick={() => setSelectedPractitioner(null)}>
           &larr; Back to Practitioners
         </button>
         <Card className="medical-card">
           <CardHeader>
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">
+            <div className="flex items-center justify-between gap-3">
               <div>
-                <CardTitle className="text-2xl font-extrabold text-gray-900">{selectedPractitioner.name}</CardTitle>
-                <CardDescription className="text-md text-muted-foreground">
+                <CardTitle className="text-3xl font-bold text-foreground">{selectedPractitioner.name}</CardTitle>
+                <CardDescription className="text-muted-foreground">
                   Practitioner Details and Verification Status
                 </CardDescription>
+              </div>
+              <div className="flex items-center gap-4">
+                {/* Placeholder for alignment */}
               </div>
             </div>
           </CardHeader>
@@ -337,51 +340,48 @@ export const PractitionerCredentials = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-        <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="bg-gradient-to-r from-blue-500 to-teal-500 w-12 h-12 rounded-lg flex items-center justify-center">
             <UserCheck className="w-6 h-6 text-white" />
           </div>
           <div>
-          <h1 className="text-3xl font-bold">
-              Practitioner Credentials
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-md">
-              Verify and manage practitioner certifications effectively with
-              ease.
-            </p>
+            <h1 className="text-3xl font-bold">Practitioner Credentials</h1>
+            <p className="text-muted-foreground">Verify and manage practitioner certifications effectively</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="w-[180px] relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
+            <Input
+              type="search"
+              placeholder="Search practitioners..."
+              className="pl-10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              aria-label="Search Practitioners"
+            />
           </div>
         </div>
       </div>
 
-      {/* Search Bar */}
+      {/* Practitioner List */}
       <Card className="medical-card">
         <CardHeader>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">
+          <div className="flex items-center justify-between">
             <div>
               <CardTitle>Credential Verification</CardTitle>
               <CardDescription>
                 Manage practitioner licenses and certifications
               </CardDescription>
             </div>
-            <div className="mt-4 md:mt-0 w-full md:w-80 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
-              <Input
-                type="search"
-                placeholder="Search practitioners..."
-                className="pl-10"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                aria-label="Search Practitioners"
-              />
-            </div>
           </div>
         </CardHeader>
         <CardContent className="overflow-x-auto">
           {filteredPractitioners.length === 0 ? (
-            <p className="text-center py-6 text-muted-foreground text-lg">
+            <p className="text-center py-6 text-muted-foreground">
               No practitioners found.
             </p>
           ) : (

@@ -53,21 +53,20 @@ export const SessionManagement = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="medical-gradient w-12 h-12 rounded-lg flex items-center justify-center shadow-md">
+          <div className="bg-gradient-to-r from-blue-500 to-teal-500 w-12 h-12 rounded-lg flex items-center justify-center shadow-md">
             <Calendar className="w-6 h-6 text-white" />
           </div>
           <div>
-          <h1 className="text-3xl font-bold">
-              Session Management
-            </h1>
-            <p className="text-muted-foreground text-base max-w-lg">
-              Manage therapy sessions and room allocation efficiently
-            </p>
+            <h1 className="text-3xl font-bold">Session Management</h1>
+            <p className="text-muted-foreground">Manage therapy sessions and room allocation efficiently</p>
           </div>
+        </div>
+        <div className="flex items-center gap-4">
+          {/* Placeholder for filter/export alignment */}
         </div>
       </div>
 
