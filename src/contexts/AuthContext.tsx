@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const users = [
   { username: 'patient', password: 'P@tient!2025', role: 'patient' as UserRole, name: 'Patient User' },
-  { username: 'doctor', password: 'Doctor@2025', role: 'practitioner' as UserRole, name: 'Dr. Smith' },
+  { username: 'doctor', password: 'Doctor@2025', role: 'practitioner' as UserRole, name: 'Dr. Suresh Kumar' },
   { username: 'clinic', password: 'Clinic@2025', role: 'clinic' as UserRole, name: 'Clinic Admin' },
   { username: 'admin', password: 'Admin@2025', role: 'admin' as UserRole, name: 'System Administrator' },
 ];
