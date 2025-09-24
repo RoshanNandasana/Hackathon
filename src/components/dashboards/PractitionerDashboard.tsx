@@ -4,7 +4,7 @@ import { PatientRecordsAnalytics } from '@/components/practitioner/PatientRecord
 import { TherapyProgressTracker } from '@/components/practitioner/TherapyProgressTracker';
 import { ScheduledAppointments } from '@/components/practitioner/ScheduledAppointments';
 import { TherapyPlanner } from '@/components/practitioner/TherapyPlanner';
-import { FeedbackReview } from '@/components/practitioner/FeedbackReview';
+import  DoctorFeedbackReview  from '@/components/practitioner/FeedbackReview';
 
 export const PractitionerDashboard = () => {
   return (
@@ -16,7 +16,7 @@ export const PractitionerDashboard = () => {
         <Route path="/progress" element={<TherapyProgressTracker />} />
         <Route path="/appointments" element={<ScheduledAppointments />} />
         <Route path="/planner" element={<TherapyPlanner />} />
-        <Route path="/feedback" element={<FeedbackReview />} />
+        <Route path="/feedback" element={<DoctorFeedbackReview />} />
       </Routes>
     </div>
   );

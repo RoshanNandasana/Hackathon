@@ -6,7 +6,7 @@ import { Messaging } from '@/components/patient/Messaging';
 import { MedicalProfile } from '@/components/patient/MedicalProfile';
 import { AutoSchedule } from '@/components/patient/AutoSchedule';
 import { TherapyAlerts } from '@/components/patient/TherapyAlerts';
-import { PostSessionFeedback } from '@/components/patient/PostSessionFeedback';
+import  PostSessionFeedback  from '@/components/patient/PostSessionFeedback';
 import { AIChatbot } from '@/components/patient/AIChatbot';
 
 export const PatientDashboard = () => {

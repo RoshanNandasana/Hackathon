@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type UserRole = 'patient' | 'practitioner' | 'clinic' | 'admin';
@@ -28,8 +29,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
 
   const login = (username: string, password: string): boolean => {
+    const trimmedUsername = username.trim();
+    const trimmedPassword = password.trim();
     const foundUser = users.find(
-      (u) => u.username === username && u.password === password
+      (u) => u.username === trimmedUsername && u.password === trimmedPassword
     );
 
     if (foundUser) {
