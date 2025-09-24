@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { PatientProfile } from '@/components/patient/PatientProfile';
-import { HealthAnalytics } from '@/components/patient/HealthAnalytics';
+import  {HealthAnalytics}  from '@/components/patient/HealthAnalytics';
 import { TherapyProgress } from '@/components/patient/TherapyProgress';
 import { Messaging } from '@/components/patient/Messaging';
 import { MedicalProfile } from '@/components/patient/MedicalProfile';
