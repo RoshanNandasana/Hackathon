@@ -1,9 +1,12 @@
+// ayur-suite-main/src/components/Messaging.tsx
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { MessageSquare, Send, User, Clock } from 'lucide-react';
+import React from 'react';
+const VideoChat = React.lazy(() => import("@/components/VideoChat"));
 
 export const Messaging = () => {
   const conversations = [
@@ -70,6 +73,7 @@ export const Messaging = () => {
 
   const [messageInput, setMessageInput] = useState('');
   const [videoDate, setVideoDate] = useState('');
+  const [showChat, setShowChat] = useState(false);
   const [videoTime, setVideoTime] = useState('');
   const [selectedDoctor, setSelectedDoctor] = useState(conversations[0]?.name || '');
 
@@ -273,8 +277,18 @@ export const Messaging = () => {
               </Button>
             </div>
           </form>
+          <div className="mt-8">
+            <Button onClick={() => setShowChat(true)} className="mb-6">
+              Do Video Chatting
+            </Button>
+            {showChat && (
+              <React.Suspense fallback={<div>Loading video chat...</div>}>
+                <VideoChat />
+              </React.Suspense>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>
   );
-};
+}

@@ -39,6 +39,7 @@ interface Practitioner {
   }>;
   submittedAt?: string;
   statusDetailed?: string;
+  doctorCertificate?: string; // Added doctorCertificate field
 }
 
 const practitionersList: Practitioner[] = [
@@ -61,6 +62,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-20",
     statusDetailed: "Pending",
+    doctorCertificate: "/public/doctorcerti.jpg", // Added doctorCertificate
   },
   {
     name: "Dr. Rajesh Patel",
@@ -81,6 +83,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-15",
     statusDetailed: "Pending",
+    doctorCertificate: "/public/doctorcerti.jpg", // Added doctorCertificate
   },
   {
     name: "Dr. Meera Shah",
@@ -101,6 +104,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-10",
     statusDetailed: "Verified",
+    doctorCertificate: "/public/doctorcerti.jpg", // Added doctorCertificate
   },
 ];
 
@@ -266,6 +270,12 @@ export const PractitionerCredentials = () => {
                       )}
                     </li>
                   ))}
+                  <li className="text-foreground">
+                    Doctor Certificate
+                    <a href={selectedPractitioner.doctorCertificate} target="_blank" rel="noopener noreferrer" className="ml-2 text-primary underline">
+                      View
+                    </a>
+                  </li>
                 </ul>
                 <div className="text-sm text-muted-foreground mt-2">
                   Submitted: <span>{selectedPractitioner.submittedAt || "N/A"}</span><br />
@@ -341,7 +351,6 @@ export const PractitionerCredentials = () => {
 
   return (
     <div className="space-y-6 p-4 max-w-7xl mx-auto">
-      {/* Header */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="bg-gradient-to-r from-blue-500 to-teal-500 w-12 h-12 rounded-lg flex items-center justify-center">
@@ -367,7 +376,6 @@ export const PractitionerCredentials = () => {
         </div>
       </div>
 
-      {/* Practitioner List */}
       <Card className="medical-card">
         <CardHeader>
           <div className="flex items-center justify-between">

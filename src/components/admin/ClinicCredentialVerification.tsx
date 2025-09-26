@@ -53,7 +53,7 @@ const clinicsList: Clinic[] = [
     registration: { country: "India", number: "AY/BRC/IND/00918" },
     documents: [
       { label: "AYUSH License", submitted: true, type: "AYUSH_LICENSE", url: "/docs/ayush_license.pdf" },
-      { label: "GMP Certification", submitted: true, type: "GMP_CERT", url: "/docs/gmp_cert.pdf" },
+      { label: "GMP Certification", submitted: true, type: "GMP_CERT", url: "../public/gmpcert.jpg" },
       { label: "NABH Accreditation", submitted: true, type: "NABH_ACCRED", url: "/docs/nabh_accred.pdf" },
       { label: "Business License", submitted: true, type: "LICENSE", url: "/docs/business_license.pdf" },
     ],
@@ -252,14 +252,23 @@ export const ClinicVerificationManager: React.FC = () => {
                     <li key={idx} className={doc.submitted ? "text-foreground" : "text-muted-foreground"}>
                       {doc.label}
                       {doc.submitted && (
-                        <a
-                          href={doc.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="ml-2 text-primary underline"
-                        >
-                          View
-                        </a>
+                        doc.type === "GMP_CERT" ? (
+                          <span
+                            className="ml-2 text-primary underline cursor-pointer"
+                            onClick={() => window.open(doc.url, "_blank")}
+                          >
+                            View
+                          </span>
+                        ) : (
+                          <a
+                            href={doc.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ml-2 text-primary underline"
+                          >
+                            View
+                          </a>
+                        )
                       )}
                     </li>
                   ))}
