@@ -62,7 +62,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-20",
     statusDetailed: "Pending",
-    doctorCertificate: "/public/doctorcerti.jpg",
+    doctorCertificate: "/doctorcerti.jpg",
   },
   {
     name: "Dr. Rajesh Patel",
@@ -83,7 +83,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-15",
     statusDetailed: "Pending",
-    doctorCertificate: "/public/doctorcerti.jpg",
+    doctorCertificate: "/doctorcerti.jpg",
   },
   {
     name: "Dr. Meera Shah",
@@ -104,7 +104,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-10",
     statusDetailed: "Verified",
-    doctorCertificate: "/public/doctorcerti.jpg",
+    doctorCertificate: "/doctorcerti.jpg",
   },
 ];
 
