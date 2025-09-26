@@ -12,7 +12,6 @@ import {
   Bot,
   Menu,
   X,
-  Heart,
   LogOut
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,13 +19,13 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const navigationItems = [
   { title: 'Profile', url: '/dashboard/profile', icon: User },
-  { title: 'Health Analytics', url: '/dashboard/analytics', icon: Activity },
-  { title: 'Therapy Progress', url: '/dashboard/progress', icon: TrendingUp },
-  { title: 'Messaging', url: '/dashboard/messaging', icon: MessageSquare },
   { title: 'Medical Profile', url: '/dashboard/medical', icon: FileText },
+  { title: 'Therapy Progress', url: '/dashboard/progress', icon: TrendingUp },
   { title: 'Auto Schedule', url: '/dashboard/schedule', icon: Calendar },
   { title: 'Therapy Alerts', url: '/dashboard/alerts', icon: Bell },
   { title: 'Feedback', url: '/dashboard/feedback', icon: MessageCircle },
+  { title: 'Health Analytics', url: '/dashboard/analytics', icon: Activity },
+  { title: 'Messaging', url: '/dashboard/messaging', icon: MessageSquare },
   { title: 'AI Chatbot', url: '/dashboard/chatbot', icon: Bot },
 ];
 
@@ -46,9 +45,6 @@ export const PatientSidebar = () => {
 
   const SidebarContent = () => (
     <>
-      {/* Header */}
-     
-
       {/* Profile Section */}
       <div className="p-6 border-b">
         <NavLink to="/dashboard/profile" className="flex items-center gap-3 hover:opacity-80">
