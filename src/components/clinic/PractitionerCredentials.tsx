@@ -39,7 +39,7 @@ interface Practitioner {
   }>;
   submittedAt?: string;
   statusDetailed?: string;
-  doctorCertificate?: string; // Added doctorCertificate field
+  doctorCertificate?: string;
 }
 
 const practitionersList: Practitioner[] = [
@@ -62,7 +62,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-20",
     statusDetailed: "Pending",
-    doctorCertificate: "/public/doctorcerti.jpg", // Added doctorCertificate
+    doctorCertificate: "/public/doctorcerti.jpg",
   },
   {
     name: "Dr. Rajesh Patel",
@@ -83,7 +83,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-15",
     statusDetailed: "Pending",
-    doctorCertificate: "/public/doctorcerti.jpg", // Added doctorCertificate
+    doctorCertificate: "/public/doctorcerti.jpg",
   },
   {
     name: "Dr. Meera Shah",
@@ -104,7 +104,7 @@ const practitionersList: Practitioner[] = [
     ],
     submittedAt: "2025-08-10",
     statusDetailed: "Verified",
-    doctorCertificate: "/public/doctorcerti.jpg", // Added doctorCertificate
+    doctorCertificate: "/public/doctorcerti.jpg",
   },
 ];
 
@@ -262,19 +262,25 @@ export const PractitionerCredentials = () => {
                 <ul className="space-y-2">
                   {selectedPractitioner.documents?.map((doc, idx) => (
                     <li key={idx} className={doc.submitted ? "text-foreground" : "text-muted-foreground"}>
-                      {doc.label}
+                      <span>{doc.label}</span>
                       {doc.submitted && (
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className="ml-2 text-primary underline">
+                        <span
+                          className="ml-2 text-primary underline cursor-pointer"
+                          onClick={() => window.open(doc.url, "_blank")}
+                        >
                           View
-                        </a>
+                        </span>
                       )}
                     </li>
                   ))}
                   <li className="text-foreground">
-                    Doctor Certificate
-                    <a href={selectedPractitioner.doctorCertificate} target="_blank" rel="noopener noreferrer" className="ml-2 text-primary underline">
+                    <span>Doctor Certificate</span>
+                    <span
+                      className="ml-2 text-primary underline cursor-pointer"
+                      onClick={() => window.open(selectedPractitioner.doctorCertificate, "_blank")}
+                    >
                       View
-                    </a>
+                    </span>
                   </li>
                 </ul>
                 <div className="text-sm text-muted-foreground mt-2">

@@ -250,27 +250,14 @@ export const ClinicVerificationManager: React.FC = () => {
                 <ul className="space-y-4 text-sm">
                   {selectedClinic.documents?.map((doc, idx) => (
                     <li key={idx} className={doc.submitted ? "text-foreground" : "text-muted-foreground"}>
-                      {doc.label}
+                      <span>{doc.label}</span>
                       {doc.submitted && doc.url && (
-                        <>
-                          {doc.type === "GMP_CERT" ? (
-                            <div className="mt-2">
-                              <span
-                                className="ml-2 text-primary underline cursor-pointer"
-                                onClick={() => window.open(doc.url, "_blank")}
-                              >
-                                View
-                              </span>
-                            </div>
-                          ) : (
-                            <span
-                              className="ml-2 text-primary underline cursor-pointer"
-                              onClick={() => window.open(doc.url, "_blank")}
-                            >
-                              View
-                            </span>
-                          )}
-                        </>
+                        <span
+                          className="ml-2 text-primary underline cursor-pointer"
+                          onClick={() => window.open(doc.url, "_blank")}
+                        >
+                          View
+                        </span>
                       )}
                     </li>
                   ))}
