@@ -1,3 +1,4 @@
+// ayur-suite-main/src/components/practitioner/PractitionerSidebar.tsx
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { 
@@ -10,7 +11,8 @@ import {
   LogOut,
   Menu,
   X,
-  Stethoscope
+  Stethoscope,
+  MessageSquare, // Added for Messaging
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -22,6 +24,7 @@ const navigationItems = [
   { title: 'Scheduled Appointments', url: '/dashboard/appointments', icon: Calendar },
   { title: 'Therapy Planner', url: '/dashboard/planner', icon: ClipboardList },
   { title: 'Feedback Review', url: '/dashboard/feedback', icon: MessageCircle },
+  { title: 'Messaging', url: '/dashboard/messaging', icon: MessageSquare }, // Added Messaging
 ];
 
 export const PractitionerSidebar = () => {
@@ -40,8 +43,6 @@ export const PractitionerSidebar = () => {
 
   const SidebarContent = () => (
     <>
-     
-
       {/* Profile Section */}
       <div className="p-6 border-b">
         <NavLink to="/dashboard/profile" className="flex items-center gap-3 hover:opacity-80">

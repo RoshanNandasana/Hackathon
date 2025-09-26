@@ -1,10 +1,12 @@
+// ayur-suite-main/src/components/practitioner/PractitionerDashboard.tsx
 import { Routes, Route } from 'react-router-dom';
 import { PractitionerProfile } from '@/components/practitioner/PractitionerProfile';
 import { PatientRecordsAnalytics } from '@/components/practitioner/PatientRecordsAnalytics';
 import { TherapyProgressTracker } from '@/components/practitioner/TherapyProgressTracker';
 import { ScheduledAppointments } from '@/components/practitioner/ScheduledAppointments';
 import { TherapyPlanner } from '@/components/practitioner/TherapyPlanner';
-import  DoctorFeedbackReview  from '@/components/practitioner/FeedbackReview';
+import DoctorFeedbackReview  from '@/components/practitioner/FeedbackReview';
+import { DoctorMessaging } from '@/components/practitioner/DoctorMessaging';
 
 export const PractitionerDashboard = () => {
   return (
@@ -17,6 +19,7 @@ export const PractitionerDashboard = () => {
         <Route path="/appointments" element={<ScheduledAppointments />} />
         <Route path="/planner" element={<TherapyPlanner />} />
         <Route path="/feedback" element={<DoctorFeedbackReview />} />
+        <Route path="/messaging" element={<DoctorMessaging />} />
       </Routes>
     </div>
   );
