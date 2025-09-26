@@ -30,7 +30,7 @@ interface Clinic {
     label: string;
     submitted: boolean;
     type: string;
-    url: string;
+    url?: string;
   }>;
   submittedAt?: string;
   statusDetailed?: string;
@@ -53,7 +53,7 @@ const clinicsList: Clinic[] = [
     registration: { country: "India", number: "AY/BRC/IND/00918" },
     documents: [
       { label: "AYUSH License", submitted: true, type: "AYUSH_LICENSE", url: "/docs/ayush_license.pdf" },
-      { label: "GMP Certification", submitted: true, type: "GMP_CERT", url: "../public/gmpcert.jpg" },
+      { label: "GMP Certification", submitted: true, type: "GMP_CERT", url: "/gmpcert.jpg" },
       { label: "NABH Accreditation", submitted: true, type: "NABH_ACCRED", url: "/docs/nabh_accred.pdf" },
       { label: "Business License", submitted: true, type: "LICENSE", url: "/docs/business_license.pdf" },
     ],
@@ -247,28 +247,30 @@ export const ClinicVerificationManager: React.FC = () => {
                 <CardDescription>Submitted compliance documents</CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-1 text-sm">
+                <ul className="space-y-4 text-sm">
                   {selectedClinic.documents?.map((doc, idx) => (
                     <li key={idx} className={doc.submitted ? "text-foreground" : "text-muted-foreground"}>
                       {doc.label}
-                      {doc.submitted && (
-                        doc.type === "GMP_CERT" ? (
-                          <span
-                            className="ml-2 text-primary underline cursor-pointer"
-                            onClick={() => window.open(doc.url, "_blank")}
-                          >
-                            View
-                          </span>
-                        ) : (
-                          <a
-                            href={doc.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="ml-2 text-primary underline"
-                          >
-                            View
-                          </a>
-                        )
+                      {doc.submitted && doc.url && (
+                        <>
+                          {doc.type === "GMP_CERT" ? (
+                            <div className="mt-2">
+                              <span
+                                className="ml-2 text-primary underline cursor-pointer"
+                                onClick={() => window.open(doc.url, "_blank")}
+                              >
+                                View
+                              </span>
+                            </div>
+                          ) : (
+                            <span
+                              className="ml-2 text-primary underline cursor-pointer"
+                              onClick={() => window.open(doc.url, "_blank")}
+                            >
+                              View
+                            </span>
+                          )}
+                        </>
                       )}
                     </li>
                   ))}
@@ -430,8 +432,8 @@ export const ClinicVerificationManager: React.FC = () => {
               <div
                 className={`p-2 text-white text-sm font-medium flex items-center gap-2 ${
                   clinic.status === "Verified"
-                    ? "bg-green-500"
-                    : "bg-red-500"
+                    ? "bg-green-600"
+                    : "bg-red-600"
                 }`}
               >
                 {clinic.status === "Verified" ? (
