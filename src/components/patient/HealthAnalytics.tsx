@@ -292,44 +292,7 @@ export const HealthAnalytics = () => {
         </CardContent>
       </Card>
 
-      {/* Detailed Feedback Table */}
-      <Card className="medical-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="w-5 h-5" />
-            Detailed Session Analytics
-          </CardTitle>
-          <CardDescription>Breakdown of key metrics per session</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Therapy</TableHead>
-                <TableHead>Rating</TableHead>
-                <TableHead>Relief</TableHead>
-                <TableHead>Agni</TableHead>
-                <TableHead>Satisfaction</TableHead>
-                <TableHead>Improvement</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sortedFeedbacks.map((f, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>{f.date}</TableCell>
-                  <TableCell>{f.therapy}</TableCell>
-                  <TableCell>{f.rating}</TableCell>
-                  <TableCell>{f.relief}</TableCell>
-                  <TableCell>{f.agni}</TableCell>
-                  <TableCell>{f.satisfaction}</TableCell>
-                  <TableCell>{f.improvement}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+     
     </div>
   );
 };
